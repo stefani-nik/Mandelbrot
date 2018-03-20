@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace MandelbrotSet
 {
-    public partial class Form1 : Form
+    public partial class Mandelbrot : Form
     {
-        public Form1()
+        public Mandelbrot()
         {
             InitializeComponent();
         }
