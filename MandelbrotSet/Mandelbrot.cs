@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MandelbrotSet
@@ -15,6 +8,21 @@ namespace MandelbrotSet
         public Mandelbrot()
         {
             InitializeComponent();
+        }
+
+        private EventHandler RenderImage()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void picBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblMandelbrot_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
