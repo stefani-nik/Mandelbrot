@@ -44,7 +44,7 @@
             this.lblMandelbrot.TabIndex = 0;
             this.lblMandelbrot.Text = "Madelbrot Set";
             this.lblMandelbrot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblMandelbrot.Click += new System.EventHandler(this.lblMandelbrot_Click);
+      
             // 
             // btnRender
             // 
@@ -57,6 +57,7 @@
             this.btnRender.TabIndex = 1;
             this.btnRender.Text = "Render";
             this.btnRender.UseVisualStyleBackColor = false;
+            this.btnRender.Click += new System.EventHandler(this.btnRender_Click);
             // 
             // picBox
             // 
@@ -68,7 +69,7 @@
             this.picBox.TabStop = false;
             this.picBox.UseWaitCursor = true;
             this.picBox.WaitOnLoad = true;
-            this.picBox.Click += new System.EventHandler(this.picBox_Click);
+            //this.picBox.Click += new System.EventHandler(this.picBox_Click);
             // 
             // Mandelbrot
             // 
@@ -79,7 +80,8 @@
             this.Controls.Add(this.btnRender);
             this.Controls.Add(this.lblMandelbrot);
             this.Name = "Mandelbrot";
-            this.Text = "Form1";
+            this.Text = "Mandelbrot";
+           // this.Load += new System.EventHandler(this.Mandelbrot_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.ResumeLayout(false);
 
