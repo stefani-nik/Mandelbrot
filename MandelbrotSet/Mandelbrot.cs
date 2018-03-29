@@ -9,12 +9,10 @@ namespace MandelbrotSet
     public class Mandelbrot
     {
 
-        public int renderPercent = 0;
-        public event EventHandler PercentChange;
-        private List<Color> palette = ColorsManager.LoadPalette();
+        private readonly List<Color> palette = ColorsManager.LoadPalette();
 
 
-        public Bitmap RenderSet()
+        public Bitmap RenderSet(int iterations)
         {
             int width = Constants.BitmapWidth;
             int height = Constants.BitmapHeight;
@@ -42,20 +40,9 @@ namespace MandelbrotSet
 
                         if (z.GetModulus() > Constants.RangeRadius) break;
 
-                    } while (it < Constants.MaxIterations);
+                    } while (it < iterations);
 
-                    Color pixelColor;
-
-                    if (it == Constants.MaxIterations)
-                    {
-                        pixelColor = Color.White;
-                    }
-                    else
-                    {
-                     
-                        pixelColor = palette[it % palette.Count];
-   
-                    }
+                    Color pixelColor = it == iterations ? Color.White : palette[it % palette.Count];
 
                     bm.SetPixel(x, y, pixelColor);
                 }

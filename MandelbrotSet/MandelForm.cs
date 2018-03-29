@@ -5,21 +5,54 @@ namespace MandelbrotSet
 {
     public partial class MandelForm : Form
     {
+        private Timer timer;
+        private DateTime startTime;
+        private bool isTimerRunning;
+
         public MandelForm()
         {
             InitializeComponent();
+            timer = new Timer {Interval = 1};
+            timer.Tick += new EventHandler(renderTimer_Tick);
+
         }
 
 
         private void btnRender_Click(object sender, EventArgs e)
         {
-           Mandelbrot fractal = new Mandelbrot();
-           picBox.Image = fractal.RenderSet();
+            startTime = DateTime.Now;
+            timer.Start();
+            isTimerRunning = true;
+            Mandelbrot fractal = new Mandelbrot();
+            picBox.Image = fractal.RenderSet((int) iterationsUpDown.Value);
+            timer.Stop();
+
         }
 
         private void Mandelbrot_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void picBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void renderTimer_Tick(object sender, EventArgs e)
+        {
+            var timeSinceStartTime = DateTime.Now - startTime;
+            timeSinceStartTime = new TimeSpan(timeSinceStartTime.Minutes,
+                                              timeSinceStartTime.Seconds,
+                                              timeSinceStartTime.Milliseconds);
+
+         
+            lblTimer.Text = timeSinceStartTime.ToString();
         }
     }
 }

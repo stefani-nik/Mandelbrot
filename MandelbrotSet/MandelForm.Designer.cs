@@ -31,10 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MandelForm));
             this.btnRender = new System.Windows.Forms.Button();
             this.picBox = new System.Windows.Forms.PictureBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.iterationsUpDown = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblTimerText = new System.Windows.Forms.Label();
+            this.lblTimer = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iterationsUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // btnRender
@@ -67,30 +69,32 @@
             this.picBox.TabStop = false;
             this.picBox.UseWaitCursor = true;
             this.picBox.WaitOnLoad = true;
+            this.picBox.Click += new System.EventHandler(this.picBox_Click);
             // 
-            // numericUpDown1
+            // iterationsUpDown
             // 
-            this.numericUpDown1.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numericUpDown1.Location = new System.Drawing.Point(492, 90);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
+            this.iterationsUpDown.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.iterationsUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.iterationsUpDown.Location = new System.Drawing.Point(492, 90);
+            this.iterationsUpDown.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
+            this.iterationsUpDown.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(140, 20);
-            this.numericUpDown1.TabIndex = 3;
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
+            this.iterationsUpDown.Name = "iterationsUpDown";
+            this.iterationsUpDown.Size = new System.Drawing.Size(140, 20);
+            this.iterationsUpDown.TabIndex = 3;
+            this.iterationsUpDown.Value = new decimal(new int[] {
+            100,
             0,
             0,
             0});
+            this.iterationsUpDown.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label1
             // 
@@ -101,6 +105,23 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "Number of iterations";
             // 
+            // lblTimerText
+            // 
+            this.lblTimerText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTimerText.Location = new System.Drawing.Point(493, 139);
+            this.lblTimerText.Name = "lblTimerText";
+            this.lblTimerText.Size = new System.Drawing.Size(140, 20);
+            this.lblTimerText.TabIndex = 5;
+            this.lblTimerText.Text = "Rendering time";
+            // 
+            // lblTimer
+            // 
+            this.lblTimer.Location = new System.Drawing.Point(498, 189);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(134, 71);
+            this.lblTimer.TabIndex = 6;
+            this.lblTimer.Text = "label2";
+            // 
             // MandelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -108,8 +129,10 @@
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(684, 461);
+            this.Controls.Add(this.lblTimer);
+            this.Controls.Add(this.lblTimerText);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(this.iterationsUpDown);
             this.Controls.Add(this.picBox);
             this.Controls.Add(this.btnRender);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -120,7 +143,7 @@
             this.Text = "Mandelbrot";
             this.Load += new System.EventHandler(this.Mandelbrot_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iterationsUpDown)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -128,8 +151,10 @@
         #endregion
         private System.Windows.Forms.Button btnRender;
         private System.Windows.Forms.PictureBox picBox;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown iterationsUpDown;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTimerText;
+        private System.Windows.Forms.Label lblTimer;
     }
 }
 
