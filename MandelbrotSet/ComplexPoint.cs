@@ -1,19 +1,21 @@
 ﻿using System;
+using MandelbrotSet.Contracts;
 
 namespace MandelbrotSet
 {
-    public struct ComplexPoint
+    public struct ComplexPoint : IComplexPoint
     {
+
+        public ComplexPoint(double real, double imaginary)
+        {
+            this.Re = real;
+            this.Im = imaginary;
+        }
 
         public double Re { get; set; }
 
         public double Im { get; set; }
-
-        public ComplexPoint(double re, double im)
-        {
-            this.Re = re;
-            this.Im = im;
-        }
+      
 
         public double GetModulus()
         {
@@ -32,7 +34,5 @@ namespace MandelbrotSet
             Re += c.Re;
             Im += c.Im;
         }
-
-
     }
 }
