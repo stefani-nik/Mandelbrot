@@ -6,7 +6,7 @@
         public static readonly int BitmapHeight = 400;
         public static readonly int RangeStart = -2;
         public static readonly int RangeEnd = 2;
-        public static readonly int MaxIterations = 500;
+        public static readonly int MaxIterations = 100;
         public static readonly double RangeRadius = 2.0;
 
     }

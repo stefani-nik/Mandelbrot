@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using MandelbrotSet.Common;
 using MandelbrotSet.Contracts;
@@ -10,16 +11,8 @@ namespace MandelbrotSet
 
         public int renderPercent = 0;
         public event EventHandler PercentChange;
+        private List<Color> palette = ColorsManager.LoadPalette();
 
-        Color[] colors = new Color[256];
-
-        public Mandelbrot()
-        {
-            for (int i = 0; i < 256; i++)
-            {
-                this.colors[i] = Color.FromArgb(255, i, i, i);
-            }
-        }
 
         public Bitmap RenderSet()
         {
@@ -59,7 +52,9 @@ namespace MandelbrotSet
                     }
                     else
                     {
-                        pixelColor = Color.Aqua;
+                     
+                        pixelColor = palette[it % palette.Count];
+   
                     }
 
                     bm.SetPixel(x, y, pixelColor);

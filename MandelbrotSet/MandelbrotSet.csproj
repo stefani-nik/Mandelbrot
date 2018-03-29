@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorsManager.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\ExtensionMethods.cs" />
     <Compile Include="ComplexPoint.cs" />
