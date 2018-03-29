@@ -12,9 +12,9 @@ namespace MandelbrotSet
             this.Im = imaginary;
         }
 
-        public double Re { get; set; }
+        public double Re { get; private set; }
 
-        public double Im { get; set; }
+        public double Im { get; private set; }
       
 
         public double GetModulus()
@@ -24,15 +24,15 @@ namespace MandelbrotSet
 
         public void GetSqrt()
         {
-            double temp = (Re * Re) - (Im * Im);
-            this.Im = 2.0 * Re * Im;
-            Re = temp;
+            double temp = (this.Re * this.Re) - (this.Im * this.Im);
+            this.Im = 2.0 * this.Re * this.Im;
+            this.Re = temp;
         }
 
         public void Add(ComplexPoint c)
         {
-            Re += c.Re;
-            Im += c.Im;
+            this.Re += c.Re;
+            this.Im += c.Im;
         }
     }
 }

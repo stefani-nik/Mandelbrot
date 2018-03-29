@@ -50,22 +50,22 @@
     <Compile Include="Common\ExtensionMethods.cs" />
     <Compile Include="ComplexPoint.cs" />
     <Compile Include="Contracts\IComplexPoint.cs" />
-    <Compile Include="Mandelbrot.cs">
+    <Compile Include="MandelForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Mandelbrot.Designer.cs">
-      <DependentUpon>Mandelbrot.cs</DependentUpon>
+    <Compile Include="MandelForm.Designer.cs">
+      <DependentUpon>MandelForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Renderer.cs" />
+    <Compile Include="Mandelbrot.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Mandelbrot.resx">
-      <DependentUpon>Mandelbrot.cs</DependentUpon>
+    <EmbeddedResource Include="MandelForm.resx">
+      <DependentUpon>MandelForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -16,7 +16,7 @@ namespace MandelbrotSet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Mandelbrot());
+            Application.Run(new MandelForm());
         }
     }
 }
