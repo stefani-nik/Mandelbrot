@@ -116,11 +116,12 @@
             // 
             // lblTimer
             // 
-            this.lblTimer.Location = new System.Drawing.Point(498, 189);
+            this.lblTimer.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTimer.Location = new System.Drawing.Point(491, 188);
             this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(134, 71);
+            this.lblTimer.Size = new System.Drawing.Size(134, 44);
             this.lblTimer.TabIndex = 6;
-            this.lblTimer.Text = "label2";
+            this.lblTimer.Text = "00:00:00";
             // 
             // MandelForm
             // 

@@ -24,8 +24,6 @@ namespace MandelbrotSet
                 for (int y = 0; y < height; y++)
                 {
                     double a = ExtensionMethods.Remap(x, 0, width, Constants.RangeStart, Constants.RangeEnd);
-                    //double a = (double) (x - (width / 2.0))/(double) (width / 4.0);
-                    //double b = (double)(y - (width / 2.0)) / (double)(width / 4.0);
                     double b = ExtensionMethods.Remap(y, 0, height, Constants.RangeStart, Constants.RangeEnd);
 
                     ComplexPoint c = new ComplexPoint(a, b);

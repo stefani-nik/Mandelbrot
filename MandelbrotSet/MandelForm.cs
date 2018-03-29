@@ -12,7 +12,7 @@ namespace MandelbrotSet
         public MandelForm()
         {
             InitializeComponent();
-            timer = new Timer {Interval = 1};
+            timer = new Timer {Interval = 1 };
             timer.Tick += new EventHandler(renderTimer_Tick);
 
         }
@@ -25,7 +25,7 @@ namespace MandelbrotSet
             isTimerRunning = true;
             Mandelbrot fractal = new Mandelbrot();
             picBox.Image = fractal.RenderSet((int) iterationsUpDown.Value);
-            timer.Stop();
+            //timer.Stop();
 
         }
 
@@ -46,13 +46,12 @@ namespace MandelbrotSet
 
         private void renderTimer_Tick(object sender, EventArgs e)
         {
-            var timeSinceStartTime = DateTime.Now - startTime;
-            timeSinceStartTime = new TimeSpan(timeSinceStartTime.Minutes,
-                                              timeSinceStartTime.Seconds,
-                                              timeSinceStartTime.Milliseconds);
+            var timeSinceStartTime = (DateTime.Now - startTime).Milliseconds;
 
-         
-            lblTimer.Text = timeSinceStartTime.ToString();
+            string result = $"{timeSinceStartTime / 1000}:{timeSinceStartTime}";
+
+
+            lblTimer.Text = result;
         }
     }
 }
