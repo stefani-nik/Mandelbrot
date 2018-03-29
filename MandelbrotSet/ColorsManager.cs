@@ -10,18 +10,18 @@ namespace MandelbrotSet
 
         public static List<Color> LoadPalette()
         {
-            for (int blue = 0; blue < 255; blue += interval)
+            for (int red = 0; red < 255; red += interval)
             {
-                for (int green = 0; green < 255; green+=interval)
+                for (int green = 0; green < 255; green += interval)
                 {
-                    for (int red = 0; red < 255; red += interval)
+                    for (int blue = 0; blue < 255; blue += interval)
                     {
-                        ColorsManager.colors.Add(Color.FromArgb(255,red,green,blue));
+                        ColorsManager.colors.Add(Color.FromArgb(255, red, green, blue));
                     }
                 }
             }
             return ColorsManager.colors;
         }
-        
+
     }
 }
