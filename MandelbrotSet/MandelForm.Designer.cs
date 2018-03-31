@@ -62,14 +62,13 @@
             this.picBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picBox.BackgroundImage")));
             this.picBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.picBox.Location = new System.Drawing.Point(28, 31);
             this.picBox.Name = "picBox";
             this.picBox.Size = new System.Drawing.Size(400, 400);
             this.picBox.TabIndex = 2;
             this.picBox.TabStop = false;
-            this.picBox.UseWaitCursor = true;
             this.picBox.WaitOnLoad = true;
-            this.picBox.Click += new System.EventHandler(this.picBox_Click);
             // 
             // iterationsUpDown
             // 
@@ -142,7 +141,6 @@
             this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "MandelForm";
             this.Text = "Mandelbrot";
-            this.Load += new System.EventHandler(this.Mandelbrot_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iterationsUpDown)).EndInit();
             this.ResumeLayout(false);

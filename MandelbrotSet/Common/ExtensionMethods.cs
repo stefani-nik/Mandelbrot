@@ -10,5 +10,7 @@
             double result = toBegin + ((value - fromBegin)*scale);
             return result;
         }
+
+
     }
 }

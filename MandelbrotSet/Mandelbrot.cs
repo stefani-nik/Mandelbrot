@@ -6,13 +6,13 @@ using MandelbrotSet.Contracts;
 
 namespace MandelbrotSet
 {
-    public class Mandelbrot
+    public static class Mandelbrot
     {
 
-        private readonly List<Color> palette = ColorsManager.LoadPalette();
+        private static readonly List<Color> palette = ColorsManager.LoadPalette();
 
 
-        public Bitmap RenderSet(int iterations)
+        public static Bitmap RenderSet(int iterations)
         {
             int width = Constants.BitmapWidth;
             int height = Constants.BitmapHeight;
