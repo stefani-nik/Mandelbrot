@@ -23,6 +23,7 @@ namespace MandelbrotSet
             picBox.MouseDown += new MouseEventHandler(picBox_MouseDown);
             picBox.MouseUp += new MouseEventHandler(picBox_MouseUp);
             picBox.MouseMove += new MouseEventHandler(picBox_MouseMove);
+            UpdateInputFields();
         }
    
 
@@ -60,12 +61,11 @@ namespace MandelbrotSet
         {
 
             int iterations = (int)iterationsUpDown.Value;
-            //iterationsUpDown.Enabled = false;
             Mandelbrot.iterations = iterations;
             StartRenderingTime();
             picBox.Image = Mandelbrot.RenderSet();
             StopRenderingTime();
-
+           
         }
 
 
@@ -99,7 +99,11 @@ namespace MandelbrotSet
 
 
                 zoomEnd = new Point((int)(zoomStart.X + zoomWidth), (int)(zoomStart.Y + zoomHeight));
+
+                StartRenderingTime();
                 this.picBox.Image = Mandelbrot.ZoomFractal(zoomStart, zoomEnd);
+                StopRenderingTime();
+
                 this.UpdateInputFields();
             }
 
