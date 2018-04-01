@@ -76,7 +76,6 @@
             this.picBox.Size = new System.Drawing.Size(400, 400);
             this.picBox.TabIndex = 2;
             this.picBox.TabStop = false;
-            this.picBox.WaitOnLoad = false;
             this.picBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseDown);
             this.picBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseMove);
             this.picBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseUp);
@@ -176,6 +175,8 @@
             // 
             // txtBoxPosX
             // 
+            this.txtBoxPosX.Enabled = false;
+            this.txtBoxPosX.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtBoxPosX.Location = new System.Drawing.Point(575, 123);
             this.txtBoxPosX.Name = "txtBoxPosX";
             this.txtBoxPosX.Size = new System.Drawing.Size(56, 20);
@@ -184,6 +185,8 @@
             // 
             // txtBoxPosY
             // 
+            this.txtBoxPosY.Enabled = false;
+            this.txtBoxPosY.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtBoxPosY.Location = new System.Drawing.Point(575, 173);
             this.txtBoxPosY.Name = "txtBoxPosY";
             this.txtBoxPosY.Size = new System.Drawing.Size(56, 20);
@@ -192,6 +195,8 @@
             // 
             // txtBoxDx
             // 
+            this.txtBoxDx.Enabled = false;
+            this.txtBoxDx.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtBoxDx.Location = new System.Drawing.Point(575, 216);
             this.txtBoxDx.Name = "txtBoxDx";
             this.txtBoxDx.Size = new System.Drawing.Size(56, 20);
@@ -200,6 +205,8 @@
             // 
             // txtBoxDy
             // 
+            this.txtBoxDy.Enabled = false;
+            this.txtBoxDy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.txtBoxDy.Location = new System.Drawing.Point(575, 264);
             this.txtBoxDy.Name = "txtBoxDy";
             this.txtBoxDy.Size = new System.Drawing.Size(56, 20);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -13,6 +14,8 @@ namespace MandelbrotSet
         private bool isZooming = false;
         private Rectangle zoomRectangle = new Rectangle();
         private bool isFractalRendered = false;
+        private Stopwatch renderingTime;
+
 
         public MandelForm()
         {
@@ -21,27 +24,48 @@ namespace MandelbrotSet
             picBox.MouseUp += new MouseEventHandler(picBox_MouseUp);
             picBox.MouseMove += new MouseEventHandler(picBox_MouseMove);
         }
+   
 
+        private bool IsPointInPicture(int x, int y)
+        {
+            if (picBox.Width > x && picBox.Height > y)
+                return true;
+
+            return false;
+        }
+
+        private void UpdateInputFields()
+        {
+            txtBoxPosX.Text = Mandelbrot.posX.ToString(CultureInfo.InvariantCulture);
+            txtBoxPosY.Text = Mandelbrot.posY.ToString(CultureInfo.InvariantCulture);
+            txtBoxDx.Text = Mandelbrot.rangeStart.ToString(CultureInfo.InvariantCulture);
+            txtBoxDy.Text = Mandelbrot.rangeEnd.ToString(CultureInfo.InvariantCulture);
+        }
+
+        private void StartRenderingTime()
+        {
+            renderingTime = new Stopwatch();
+            renderingTime.Start();
+        }
+
+        private void StopRenderingTime()
+        {
+            renderingTime.Stop();
+            TimeSpan ts = renderingTime.Elapsed;
+            lblTimer.Text = $"{ts.Seconds}:{ts.Milliseconds}";
+        }
+        #region EventHandlers
 
         private void btnRender_Click(object sender, EventArgs e)
         {
 
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
-
             int iterations = (int)iterationsUpDown.Value;
-            double posX = double.Parse(txtBoxPosX.Text);
-            double posY = double.Parse(txtBoxPosY.Text);
-            double dX = double.Parse(txtBoxDx.Text);
-            double dY = double.Parse(txtBoxDy.Text);
+            //iterationsUpDown.Enabled = false;
+            Mandelbrot.iterations = iterations;
+            StartRenderingTime();
             picBox.Image = Mandelbrot.RenderSet();
+            StopRenderingTime();
 
-            stopWatch.Stop();
-
-            // Get the elapsed time as a TimeSpan value.
-            TimeSpan ts = stopWatch.Elapsed;
-
-            lblTimer.Text = $"{ts.Seconds}:{ts.Milliseconds}";
         }
 
 
@@ -55,7 +79,6 @@ namespace MandelbrotSet
                 isZooming = true;
             }
         }
-
         private void picBox_MouseUp(object sender, MouseEventArgs e)
         {
             if (zoomStart != Point.Empty && e.Button == MouseButtons.Left && isZooming && IsPointInPicture(e.X, e.Y))
@@ -77,6 +100,7 @@ namespace MandelbrotSet
 
                 zoomEnd = new Point((int)(zoomStart.X + zoomWidth), (int)(zoomStart.Y + zoomHeight));
                 this.picBox.Image = Mandelbrot.ZoomFractal(zoomStart, zoomEnd);
+                this.UpdateInputFields();
             }
 
             zoomStart = Point.Empty;
@@ -85,16 +109,13 @@ namespace MandelbrotSet
             this.Cursor = DefaultCursor;
         }
 
+
         private void picBox_MouseMove(object sender, MouseEventArgs e)
         {
-            if (zoomStart != Point.Empty && isZooming)
+            if (zoomStart != Point.Empty && isZooming && IsPointInPicture(e.X, e.Y))
             {
 
                 ControlPaint.DrawReversibleFrame(zoomRectangle, this.BackColor, FrameStyle.Dashed);
-
-                Point endPoint = picBox.PointToScreen(new Point(e.X, e.Y));
-                Point startPoint = picBox.PointToScreen(zoomStart);
-
 
                 double zoomWidth = e.X - zoomStart.X;
                 double zoomHeight = e.Y - zoomStart.Y;
@@ -112,17 +133,8 @@ namespace MandelbrotSet
 
                 zoomRectangle.Width = (int)zoomWidth;
                 zoomRectangle.Height = (int)zoomHeight;
-
-                //ControlPaint.DrawReversibleFrame(zoomRectangle, this.BackColor, FrameStyle.Dashed);
             }
         }
-
-        private bool IsPointInPicture(int x, int y)
-        {
-            if (picBox.Width > x && picBox.Height > y)
-                return true;
-
-            return false;
-        }
+        #endregion
     }
 }

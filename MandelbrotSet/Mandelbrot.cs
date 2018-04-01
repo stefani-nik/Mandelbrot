@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using MandelbrotSet.Common;
-using MandelbrotSet.Contracts;
 
 namespace MandelbrotSet
 {
@@ -41,7 +39,7 @@ namespace MandelbrotSet
                 for (int x = 0; x < width; x++)
                 {
                     ComplexPoint c = new ComplexPoint(coordX, coordY);
-                    IComplexPoint z = new ComplexPoint(0, 0);
+                    ComplexPoint z = new ComplexPoint(0, 0);
 
                     int it = 0;
                     do

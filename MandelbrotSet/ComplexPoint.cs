@@ -1,9 +1,8 @@
 ﻿using System;
-using MandelbrotSet.Contracts;
 
 namespace MandelbrotSet
 {
-    public struct ComplexPoint : IComplexPoint
+    public struct ComplexPoint
     {
 
         public ComplexPoint(double real, double imaginary)

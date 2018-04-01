@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 
-namespace MandelbrotSet
+namespace MandelbrotSet.Common
 {
     public static class ColorsManager
     {
-        public const int interval = 40;
+        public const int interval = 100;
         public static readonly List<Color> colors = new List<Color>();
 
         public static List<Color> LoadPalette()
         {
-            for (int red = 0; red < 255; red += interval)
+            for  (int green = 0; green < 255; green += interval)
             {
-                for (int green = 0; green < 255; green += interval)
+                for (int blue = 0; blue < 255; blue += interval)
                 {
-                    for (int blue = 0; blue < 255; blue += interval)
+                    for (int red = 0; red < 255; red += interval)
                     {
                         ColorsManager.colors.Add(Color.FromArgb(255, red, green, blue));
                     }
