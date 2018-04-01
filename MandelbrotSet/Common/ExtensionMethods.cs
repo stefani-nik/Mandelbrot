@@ -32,8 +32,7 @@ namespace MandelbrotSet.Common
             double newX = newPosX + dxf;
             double newY = newPosY + dyf;
 
-      
-
+     
             return  Tuple.Create(newX, newY);
         }
 
