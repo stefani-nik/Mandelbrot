@@ -5,7 +5,7 @@ namespace MandelbrotSet.Common
 {
     public static class ExtensionMethods
     {
-        public static double Remap(int value,
+        public static double Remap(double value,
                                 double fromBegin, double fromEnd,
                                 double toBegin, double toEnd)
         {
