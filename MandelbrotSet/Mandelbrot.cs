@@ -77,8 +77,8 @@ namespace MandelbrotSet
             double endX = mappedEndPont.Item1;
             double endY = mappedEndPont.Item2;
 
-            Mandelbrot.posX = (startX + endX) / 2.0;
-            Mandelbrot.posY = (startY + endY) / 2.0;
+            Mandelbrot.posX = startX;
+            Mandelbrot.posY = startY;
             Mandelbrot.rangeStart = endX - startX;
             Mandelbrot.rangeEnd = endY - startY;
 
