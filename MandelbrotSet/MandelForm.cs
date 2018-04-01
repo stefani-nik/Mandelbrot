@@ -17,6 +17,9 @@ namespace MandelbrotSet
         public MandelForm()
         {
             InitializeComponent();
+            picBox.MouseDown += new MouseEventHandler(picBox_MouseDown);
+            picBox.MouseUp += new MouseEventHandler(picBox_MouseUp);
+            picBox.MouseMove += new MouseEventHandler(picBox_MouseMove);
         }
 
 
@@ -44,7 +47,7 @@ namespace MandelbrotSet
 
         private void picBox_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && zoomStart == Point.Empty)
+            if (e.Button == MouseButtons.Left && zoomStart == Point.Empty && IsPointInPicture(e.X, e.Y))
             {
                 zoomStart = new Point(e.X, e.Y);
                 Point rectStart = picBox.PointToScreen(new Point(e.X, e.Y));
@@ -55,28 +58,31 @@ namespace MandelbrotSet
 
         private void picBox_MouseUp(object sender, MouseEventArgs e)
         {
-            if (zoomStart != Point.Empty && e.Button == MouseButtons.Left && isZooming)
+            if (zoomStart != Point.Empty && e.Button == MouseButtons.Left && isZooming && IsPointInPicture(e.X, e.Y))
             {
-                double ar = 1.0;
 
-                if (picBox.Image != null)
+                double zoomWidth = e.X - zoomStart.X;
+                double zoomHeight = e.Y - zoomStart.Y;
+
+                // to make it a square  
+                if (zoomWidth > zoomHeight)
                 {
-                    ar = (double)picBox.Image.Width / (double)picBox.Image.Height;
+                    zoomHeight = zoomWidth;
+                }
+                else
+                {
+                    zoomWidth = zoomHeight;
                 }
 
-                double drw = e.X - zoomStart.X;
-                double drh = e.Y - zoomEnd.Y;
 
-                if (drw > drh) drh = drw / ar;
-                else drw = drh * ar;
-
-                zoomEnd = new Point((int)(zoomStart.X + drw), (int)(zoomStart.Y + drh));
-                Mandelbrot.ZoomFractal(zoomStart, zoomEnd);
+                zoomEnd = new Point((int)(zoomStart.X + zoomWidth), (int)(zoomStart.Y + zoomHeight));
+                this.picBox.Image = Mandelbrot.ZoomFractal(zoomStart, zoomEnd);
             }
 
             zoomStart = Point.Empty;
             zoomEnd = Point.Empty;
             isZooming = false;
+            this.Cursor = DefaultCursor;
         }
 
         private void picBox_MouseMove(object sender, MouseEventArgs e)
@@ -90,8 +96,8 @@ namespace MandelbrotSet
                 Point startPoint = picBox.PointToScreen(zoomStart);
 
 
-                double zoomWidth = endPoint.X - startPoint.X;
-                double zoomHeight = endPoint.Y - startPoint.Y;
+                double zoomWidth = e.X - zoomStart.X;
+                double zoomHeight = e.Y - zoomStart.Y;
 
                 // to make it a square  
                 if (zoomWidth > zoomHeight)
@@ -104,12 +110,19 @@ namespace MandelbrotSet
                 }
 
 
-
                 zoomRectangle.Width = (int)zoomWidth;
                 zoomRectangle.Height = (int)zoomHeight;
 
-                ControlPaint.DrawReversibleFrame(zoomRectangle, this.BackColor, FrameStyle.Dashed);
+                //ControlPaint.DrawReversibleFrame(zoomRectangle, this.BackColor, FrameStyle.Dashed);
             }
+        }
+
+        private bool IsPointInPicture(int x, int y)
+        {
+            if (picBox.Width > x && picBox.Height > y)
+                return true;
+
+            return false;
         }
     }
 }

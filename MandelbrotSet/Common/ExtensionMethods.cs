@@ -5,7 +5,7 @@ namespace MandelbrotSet.Common
 {
     public static class ExtensionMethods
     {
-        public static double Remap(int value,
+        public static double Remap(double value,
                                 double fromBegin, double fromEnd,
                                 double toBegin, double toEnd)
         {
@@ -32,7 +32,10 @@ namespace MandelbrotSet.Common
             double newX = newPosX + dxf;
             double newY = newPosY + dyf;
 
-     
+            //double newX = Remap(p.X, posX, posY, rangeStart, rangeEnd);
+            //double newY = Remap(p.X, posX, posY, rangeStart, rangeEnd);
+
+
             return  Tuple.Create(newX, newY);
         }
 

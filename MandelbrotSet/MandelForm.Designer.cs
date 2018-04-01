@@ -71,12 +71,12 @@
             this.picBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picBox.Cursor = System.Windows.Forms.Cursors.Cross;
-            this.picBox.Location = new System.Drawing.Point(28, 31);
+            this.picBox.Location = new System.Drawing.Point(30, 30);
             this.picBox.Name = "picBox";
             this.picBox.Size = new System.Drawing.Size(400, 400);
             this.picBox.TabIndex = 2;
             this.picBox.TabStop = false;
-            this.picBox.WaitOnLoad = true;
+            this.picBox.WaitOnLoad = false;
             this.picBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseDown);
             this.picBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseMove);
             this.picBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseUp);
@@ -104,7 +104,6 @@
             0,
             0,
             0});
-      
             // 
             // label1
             // 
@@ -164,7 +163,6 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "DX";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-      
             // 
             // label3
             // 
