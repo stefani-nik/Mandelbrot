@@ -18,12 +18,15 @@ namespace MandelbrotSet
         private static readonly List<Color> palette = ColorsManager.LoadPalette();
 
 
+
         public static Bitmap RenderSet()
         {
             int width = Constants.BitmapWidth;
             int height = Constants.BitmapHeight;
 
             Bitmap bm = new Bitmap(width, height);
+
+
 
             for (int x = 0; x < width; x++)
             {
@@ -32,14 +35,14 @@ namespace MandelbrotSet
                     //double a = ExtensionMethods.Remap(x, 0, width, Constants.RangeStart, Constants.RangeEnd);
                     //double b = ExtensionMethods.Remap(y, 0, height, Constants.RangeStart, Constants.RangeEnd);
 
-                    double a = ExtensionMethods.Remap(x, 0, width, rangeStart, rangeEnd);
-                    double b = ExtensionMethods.Remap(y, 0, height, rangeStart, rangeEnd);
+                    double a = ExtensionMethods.Remap(x, posX, width, rangeStart, rangeEnd);
+                    double b = ExtensionMethods.Remap(y, posY, height, rangeStart, rangeEnd);
 
                     //double a = ExtensionMethods.Remap(x, 0, dX, Constants.RangeStart, Constants.RangeEnd);
                     //double b = ExtensionMethods.Remap(y, 0, dY, Constants.RangeStart, Constants.RangeEnd);
 
                     ComplexPoint c = new ComplexPoint(a, b);
-                    IComplexPoint z = new ComplexPoint(posX, posY);
+                    IComplexPoint z = new ComplexPoint(0, 0);
                     //IComplexPoint z = new ComplexPoint(0, 0);
 
                     int it = 0;
@@ -62,7 +65,7 @@ namespace MandelbrotSet
             return bm;
         }
 
-        public static void ZoomFractal(Point zoomStart, Point zoomEnd)
+        public static Bitmap ZoomFractal(Point zoomStart, Point zoomEnd)
         {
 
             var mappedStartPoint = ExtensionMethods.MapPoint(zoomStart);
@@ -79,7 +82,13 @@ namespace MandelbrotSet
             Mandelbrot.rangeStart = endX - startX;
             Mandelbrot.rangeEnd = endY - startY;
 
-            Mandelbrot.RenderSet();
+            int width = Constants.BitmapWidth;
+            int height = Constants.BitmapHeight;
+
+            Bitmap bm = new Bitmap(width, height);
+
+            bm = Mandelbrot.RenderSet();
+            return bm;
         }
     }
 }
