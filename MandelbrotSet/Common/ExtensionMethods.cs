@@ -3,8 +3,8 @@
     public static class ExtensionMethods
     {
         public static double Remap(int value,
-                                int fromBegin, int fromEnd,
-                                int toBegin, int toEnd)
+                                double fromBegin, double fromEnd,
+                                double toBegin, double toEnd)
         {
             double scale = (double) (toEnd - toBegin)/(fromEnd - fromBegin);
             double result = toBegin + ((value - fromBegin)*scale);

@@ -35,20 +35,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblTimerText = new System.Windows.Forms.Label();
             this.lblTimer = new System.Windows.Forms.Label();
-            this.posXUpDown = new System.Windows.Forms.NumericUpDown();
-            this.posYUpDown = new System.Windows.Forms.NumericUpDown();
-            this.dXUpDown = new System.Windows.Forms.NumericUpDown();
-            this.dYUpDown = new System.Windows.Forms.NumericUpDown();
             this.lblPosX = new System.Windows.Forms.Label();
             this.lblPosY = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtBoxPosX = new System.Windows.Forms.TextBox();
+            this.txtBoxPosY = new System.Windows.Forms.TextBox();
+            this.txtBoxDx = new System.Windows.Forms.TextBox();
+            this.txtBoxDy = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iterationsUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.posXUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.posYUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dXUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dYUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // btnRender
@@ -81,6 +77,9 @@
             this.picBox.TabIndex = 2;
             this.picBox.TabStop = false;
             this.picBox.WaitOnLoad = true;
+            this.picBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseDown);
+            this.picBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseMove);
+            this.picBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseUp);
             // 
             // iterationsUpDown
             // 
@@ -105,7 +104,7 @@
             0,
             0,
             0});
-            this.iterationsUpDown.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+      
             // 
             // label1
             // 
@@ -136,34 +135,6 @@
             this.lblTimer.Text = "00:00";
             this.lblTimer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // posXUpDown
-            // 
-            this.posXUpDown.Location = new System.Drawing.Point(575, 123);
-            this.posXUpDown.Name = "posXUpDown";
-            this.posXUpDown.Size = new System.Drawing.Size(50, 20);
-            this.posXUpDown.TabIndex = 7;
-            // 
-            // posYUpDown
-            // 
-            this.posYUpDown.Location = new System.Drawing.Point(575, 171);
-            this.posYUpDown.Name = "posYUpDown";
-            this.posYUpDown.Size = new System.Drawing.Size(50, 20);
-            this.posYUpDown.TabIndex = 8;
-            // 
-            // dXUpDown
-            // 
-            this.dXUpDown.Location = new System.Drawing.Point(575, 214);
-            this.dXUpDown.Name = "dXUpDown";
-            this.dXUpDown.Size = new System.Drawing.Size(50, 20);
-            this.dXUpDown.TabIndex = 9;
-            // 
-            // dYUpDown
-            // 
-            this.dYUpDown.Location = new System.Drawing.Point(575, 264);
-            this.dYUpDown.Name = "dYUpDown";
-            this.dYUpDown.Size = new System.Drawing.Size(50, 20);
-            this.dYUpDown.TabIndex = 10;
-            // 
             // lblPosX
             // 
             this.lblPosX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -193,7 +164,7 @@
             this.label2.TabIndex = 13;
             this.label2.Text = "DX";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label2.Click += new System.EventHandler(this.label2_Click);
+      
             // 
             // label3
             // 
@@ -205,6 +176,38 @@
             this.label3.Text = "DY";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // txtBoxPosX
+            // 
+            this.txtBoxPosX.Location = new System.Drawing.Point(575, 123);
+            this.txtBoxPosX.Name = "txtBoxPosX";
+            this.txtBoxPosX.Size = new System.Drawing.Size(56, 20);
+            this.txtBoxPosX.TabIndex = 15;
+            this.txtBoxPosX.Text = "0.0";
+            // 
+            // txtBoxPosY
+            // 
+            this.txtBoxPosY.Location = new System.Drawing.Point(575, 173);
+            this.txtBoxPosY.Name = "txtBoxPosY";
+            this.txtBoxPosY.Size = new System.Drawing.Size(56, 20);
+            this.txtBoxPosY.TabIndex = 16;
+            this.txtBoxPosY.Text = "0.0";
+            // 
+            // txtBoxDx
+            // 
+            this.txtBoxDx.Location = new System.Drawing.Point(575, 216);
+            this.txtBoxDx.Name = "txtBoxDx";
+            this.txtBoxDx.Size = new System.Drawing.Size(56, 20);
+            this.txtBoxDx.TabIndex = 17;
+            this.txtBoxDx.Text = "-2.0";
+            // 
+            // txtBoxDy
+            // 
+            this.txtBoxDy.Location = new System.Drawing.Point(575, 264);
+            this.txtBoxDy.Name = "txtBoxDy";
+            this.txtBoxDy.Size = new System.Drawing.Size(56, 20);
+            this.txtBoxDy.TabIndex = 18;
+            this.txtBoxDy.Text = "2.0";
+            // 
             // MandelForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,14 +215,14 @@
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(684, 461);
+            this.Controls.Add(this.txtBoxDy);
+            this.Controls.Add(this.txtBoxDx);
+            this.Controls.Add(this.txtBoxPosY);
+            this.Controls.Add(this.txtBoxPosX);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblPosY);
             this.Controls.Add(this.lblPosX);
-            this.Controls.Add(this.dYUpDown);
-            this.Controls.Add(this.dXUpDown);
-            this.Controls.Add(this.posYUpDown);
-            this.Controls.Add(this.posXUpDown);
             this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.lblTimerText);
             this.Controls.Add(this.label1);
@@ -234,11 +237,8 @@
             this.Text = "Mandelbrot";
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iterationsUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.posXUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.posYUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dXUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dYUpDown)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -249,14 +249,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblTimerText;
         private System.Windows.Forms.Label lblTimer;
-        private System.Windows.Forms.NumericUpDown posXUpDown;
-        private System.Windows.Forms.NumericUpDown posYUpDown;
-        private System.Windows.Forms.NumericUpDown dXUpDown;
-        private System.Windows.Forms.NumericUpDown dYUpDown;
         private System.Windows.Forms.Label lblPosX;
         private System.Windows.Forms.Label lblPosY;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtBoxPosX;
+        private System.Windows.Forms.TextBox txtBoxPosY;
+        private System.Windows.Forms.TextBox txtBoxDx;
+        private System.Windows.Forms.TextBox txtBoxDy;
     }
 }
 

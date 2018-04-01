@@ -12,7 +12,7 @@ namespace MandelbrotSet
         private static readonly List<Color> palette = ColorsManager.LoadPalette();
 
 
-        public static Bitmap RenderSet(int iterations)
+        public static Bitmap RenderSet(int iterations, double posX, double posY, double dX, double dY)
         {
             int width = Constants.BitmapWidth;
             int height = Constants.BitmapHeight;
@@ -23,11 +23,18 @@ namespace MandelbrotSet
             {
                 for (int y = 0; y < height; y++)
                 {
-                    double a = ExtensionMethods.Remap(x, 0, width, Constants.RangeStart, Constants.RangeEnd);
-                    double b = ExtensionMethods.Remap(y, 0, height, Constants.RangeStart, Constants.RangeEnd);
+                    //double a = ExtensionMethods.Remap(x, 0, width, Constants.RangeStart, Constants.RangeEnd);
+                    //double b = ExtensionMethods.Remap(y, 0, height, Constants.RangeStart, Constants.RangeEnd);
+
+                    double a = ExtensionMethods.Remap(x, 0, width, dX, dY);
+                    double b = ExtensionMethods.Remap(y, 0, height, dX, dY);
+
+                   //double a = ExtensionMethods.Remap(x, 0, dX, Constants.RangeStart, Constants.RangeEnd);
+                   //double b = ExtensionMethods.Remap(y, 0, dY, Constants.RangeStart, Constants.RangeEnd);
 
                     ComplexPoint c = new ComplexPoint(a, b);
-                    IComplexPoint z = new ComplexPoint(0, 0);
+                    IComplexPoint z = new ComplexPoint(posX, posY);
+                    //IComplexPoint z = new ComplexPoint(0, 0);
 
                     int it = 0;
                     do
