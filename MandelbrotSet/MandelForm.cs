@@ -57,20 +57,22 @@ namespace MandelbrotSet
         {
             if (zoomStart != Point.Empty && e.Button == MouseButtons.Left && isZooming)
             {
-                double ar = 1.0;
 
-                if (picBox.Image != null)
+                double zoomWidth = e.X - zoomStart.X;
+                double zoomHeight = e.Y - zoomStart.Y;
+
+                // to make it a square  
+                if (zoomWidth > zoomHeight)
                 {
-                    ar = (double)picBox.Image.Width / (double)picBox.Image.Height;
+                    zoomHeight = zoomWidth;
+                }
+                else
+                {
+                    zoomWidth = zoomHeight;
                 }
 
-                double drw = e.X - zoomStart.X;
-                double drh = e.Y - zoomEnd.Y;
 
-                if (drw > drh) drh = drw / ar;
-                else drw = drh * ar;
-
-                zoomEnd = new Point((int)(zoomStart.X + drw), (int)(zoomStart.Y + drh));
+                zoomEnd = new Point((int)(zoomStart.X + zoomWidth), (int)(zoomStart.Y + zoomHeight));
                 Mandelbrot.ZoomFractal(zoomStart, zoomEnd);
             }
 
