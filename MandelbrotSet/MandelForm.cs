@@ -17,7 +17,6 @@ namespace MandelbrotSet
         public MandelForm()
         {
             InitializeComponent();
-
         }
 
 
@@ -32,7 +31,7 @@ namespace MandelbrotSet
             double posY = double.Parse(txtBoxPosY.Text);
             double dX = double.Parse(txtBoxDx.Text);
             double dY = double.Parse(txtBoxDy.Text);
-            picBox.Image = Mandelbrot.RenderSet(iterations, posX, posY, dX, dY);
+            picBox.Image = Mandelbrot.RenderSet();
 
             stopWatch.Stop();
 
@@ -72,7 +71,7 @@ namespace MandelbrotSet
                 else drw = drh * ar;
 
                 zoomEnd = new Point((int)(zoomStart.X + drw), (int)(zoomStart.Y + drh));
-                // ZoomFractal
+                Mandelbrot.ZoomFractal(zoomStart, zoomEnd);
             }
 
             zoomStart = Point.Empty;

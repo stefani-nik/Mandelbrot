@@ -9,10 +9,16 @@ namespace MandelbrotSet
     public static class Mandelbrot
     {
 
+        public static double posX = Constants.PositionX;
+        public static double posY = Constants.PositionY;
+        public static double rangeStart = Constants.RangeStart;
+        public static double rangeEnd = Constants.RangeEnd;
+        public static int iterations = Constants.DefaultIterations;
+
         private static readonly List<Color> palette = ColorsManager.LoadPalette();
 
 
-        public static Bitmap RenderSet(int iterations, double posX, double posY, double dX, double dY)
+        public static Bitmap RenderSet()
         {
             int width = Constants.BitmapWidth;
             int height = Constants.BitmapHeight;
@@ -26,11 +32,11 @@ namespace MandelbrotSet
                     //double a = ExtensionMethods.Remap(x, 0, width, Constants.RangeStart, Constants.RangeEnd);
                     //double b = ExtensionMethods.Remap(y, 0, height, Constants.RangeStart, Constants.RangeEnd);
 
-                    double a = ExtensionMethods.Remap(x, 0, width, dX, dY);
-                    double b = ExtensionMethods.Remap(y, 0, height, dX, dY);
+                    double a = ExtensionMethods.Remap(x, 0, width, rangeStart, rangeEnd);
+                    double b = ExtensionMethods.Remap(y, 0, height, rangeStart, rangeEnd);
 
-                   //double a = ExtensionMethods.Remap(x, 0, dX, Constants.RangeStart, Constants.RangeEnd);
-                   //double b = ExtensionMethods.Remap(y, 0, dY, Constants.RangeStart, Constants.RangeEnd);
+                    //double a = ExtensionMethods.Remap(x, 0, dX, Constants.RangeStart, Constants.RangeEnd);
+                    //double b = ExtensionMethods.Remap(y, 0, dY, Constants.RangeStart, Constants.RangeEnd);
 
                     ComplexPoint c = new ComplexPoint(a, b);
                     IComplexPoint z = new ComplexPoint(posX, posY);
@@ -54,6 +60,26 @@ namespace MandelbrotSet
             }
 
             return bm;
+        }
+
+        public static void ZoomFractal(Point zoomStart, Point zoomEnd)
+        {
+
+            var mappedStartPoint = ExtensionMethods.MapPoint(zoomStart);
+            var mappedEndPont = ExtensionMethods.MapPoint(zoomEnd);
+
+            double startX = mappedStartPoint.Item1;
+            double startY = mappedStartPoint.Item2;
+
+            double endX = mappedEndPont.Item1;
+            double endY = mappedEndPont.Item2;
+
+            Mandelbrot.posX = (startX + endX)/2.0;
+            Mandelbrot.posY = (startY + endY)/2.0;
+            Mandelbrot.rangeStart = startX - endX;
+            Mandelbrot.rangeEnd = startY - endY;
+
+            Mandelbrot.RenderSet();
         }
     }
 }
