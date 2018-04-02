@@ -1,4 +1,6 @@
-﻿namespace MandelbrotSet
+﻿using MandelbrotSet.Common;
+
+namespace MandelbrotSet
 {
     partial class MandelForm
     {
@@ -79,25 +81,19 @@
             this.picBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseDown);
             this.picBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseMove);
             this.picBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseUp);
-       
             // 
             // iterationsUpDown
             // 
-            this.iterationsUpDown.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.iterationsUpDown.BackColor = System.Drawing.SystemColors.Info;
             this.iterationsUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.iterationsUpDown.Location = new System.Drawing.Point(492, 71);
+            this.iterationsUpDown.Location = new System.Drawing.Point(484, 71);
             this.iterationsUpDown.Maximum = new decimal(new int[] {
             3000,
             0,
             0,
             0});
-            this.iterationsUpDown.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.iterationsUpDown.Name = "iterationsUpDown";
-            this.iterationsUpDown.Size = new System.Drawing.Size(140, 20);
+            this.iterationsUpDown.Size = new System.Drawing.Size(174, 20);
             this.iterationsUpDown.TabIndex = 3;
             this.iterationsUpDown.Value = new decimal(new int[] {
             128,
@@ -107,6 +103,7 @@
             // 
             // lblNumIterations
             // 
+            this.lblNumIterations.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.lblNumIterations.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblNumIterations.Location = new System.Drawing.Point(488, 31);
             this.lblNumIterations.Name = "lblNumIterations";
@@ -136,6 +133,7 @@
             // 
             // lblPosX
             // 
+            this.lblPosX.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.lblPosX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblPosX.Location = new System.Drawing.Point(488, 123);
             this.lblPosX.Name = "lblPosX";
@@ -146,6 +144,7 @@
             // 
             // lblPosY
             // 
+            this.lblPosY.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.lblPosY.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblPosY.Location = new System.Drawing.Point(488, 171);
             this.lblPosY.Name = "lblPosY";
@@ -156,6 +155,7 @@
             // 
             // lblDx
             // 
+            this.lblDx.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.lblDx.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblDx.Location = new System.Drawing.Point(488, 214);
             this.lblDx.Name = "lblDx";
@@ -166,6 +166,7 @@
             // 
             // lblDy
             // 
+            this.lblDy.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.lblDy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblDy.Location = new System.Drawing.Point(488, 264);
             this.lblDy.Name = "lblDy";

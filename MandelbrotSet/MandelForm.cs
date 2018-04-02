@@ -20,9 +20,6 @@ namespace MandelbrotSet
         public MandelForm()
         {
             InitializeComponent();
-            picBox.MouseDown += new MouseEventHandler(picBox_MouseDown);
-            picBox.MouseUp += new MouseEventHandler(picBox_MouseUp);
-            picBox.MouseMove += new MouseEventHandler(picBox_MouseMove);
             UpdateInputFields();
         }
    

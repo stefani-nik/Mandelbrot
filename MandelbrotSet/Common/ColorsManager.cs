@@ -5,7 +5,7 @@ namespace MandelbrotSet.Common
 {
     public static class ColorsManager
     {
-        public const int interval = 100;
+        public static int interval = Constants.ColorsInterval;
         public static readonly List<Color> colors = new List<Color>();
 
         public static List<Color> LoadPalette()

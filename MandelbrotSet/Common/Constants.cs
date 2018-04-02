@@ -8,8 +8,11 @@
         public static readonly double PositionY = 0.0;
         public static readonly double RangeStart = 4.0;
         public static readonly double RangeEnd = 4.0;
+        public static readonly int MinIterations = 0;
         public static readonly int DefaultIterations = 128;
+        public static readonly int MaxIterations = 3000;
         public static readonly double RangeRadius = 2.0;
+        public static readonly int ColorsInterval = 100;
 
     }
 }
