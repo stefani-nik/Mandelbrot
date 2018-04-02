@@ -32,13 +32,13 @@
             this.btnRender = new System.Windows.Forms.Button();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.iterationsUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblNumIterations = new System.Windows.Forms.Label();
             this.lblTimerText = new System.Windows.Forms.Label();
             this.lblTimer = new System.Windows.Forms.Label();
             this.lblPosX = new System.Windows.Forms.Label();
             this.lblPosY = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblDx = new System.Windows.Forms.Label();
+            this.lblDy = new System.Windows.Forms.Label();
             this.txtBoxPosX = new System.Windows.Forms.TextBox();
             this.txtBoxPosY = new System.Windows.Forms.TextBox();
             this.txtBoxDx = new System.Windows.Forms.TextBox();
@@ -79,6 +79,7 @@
             this.picBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseDown);
             this.picBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseMove);
             this.picBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picBox_MouseUp);
+       
             // 
             // iterationsUpDown
             // 
@@ -86,7 +87,7 @@
             this.iterationsUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.iterationsUpDown.Location = new System.Drawing.Point(492, 71);
             this.iterationsUpDown.Maximum = new decimal(new int[] {
-            1000,
+            3000,
             0,
             0,
             0});
@@ -104,14 +105,14 @@
             0,
             0});
             // 
-            // label1
+            // lblNumIterations
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(488, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(170, 20);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Number of iterations";
+            this.lblNumIterations.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblNumIterations.Location = new System.Drawing.Point(488, 31);
+            this.lblNumIterations.Name = "lblNumIterations";
+            this.lblNumIterations.Size = new System.Drawing.Size(170, 20);
+            this.lblNumIterations.TabIndex = 4;
+            this.lblNumIterations.Text = "Number of iterations";
             // 
             // lblTimerText
             // 
@@ -153,25 +154,25 @@
             this.lblPosY.Text = "Position Y";
             this.lblPosY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // lblDx
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(488, 214);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 20);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "DX";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDx.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblDx.Location = new System.Drawing.Point(488, 214);
+            this.lblDx.Name = "lblDx";
+            this.lblDx.Size = new System.Drawing.Size(80, 20);
+            this.lblDx.TabIndex = 13;
+            this.lblDx.Text = "DX";
+            this.lblDx.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // lblDy
             // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(488, 264);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 20);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "DY";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblDy.Location = new System.Drawing.Point(488, 264);
+            this.lblDy.Name = "lblDy";
+            this.lblDy.Size = new System.Drawing.Size(80, 20);
+            this.lblDy.TabIndex = 14;
+            this.lblDy.Text = "DY";
+            this.lblDy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtBoxPosX
             // 
@@ -224,13 +225,13 @@
             this.Controls.Add(this.txtBoxDx);
             this.Controls.Add(this.txtBoxPosY);
             this.Controls.Add(this.txtBoxPosX);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblDy);
+            this.Controls.Add(this.lblDx);
             this.Controls.Add(this.lblPosY);
             this.Controls.Add(this.lblPosX);
             this.Controls.Add(this.lblTimer);
             this.Controls.Add(this.lblTimerText);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblNumIterations);
             this.Controls.Add(this.iterationsUpDown);
             this.Controls.Add(this.picBox);
             this.Controls.Add(this.btnRender);
@@ -251,13 +252,13 @@
         private System.Windows.Forms.Button btnRender;
         private System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.NumericUpDown iterationsUpDown;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblNumIterations;
         private System.Windows.Forms.Label lblTimerText;
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.Label lblPosX;
         private System.Windows.Forms.Label lblPosY;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblDx;
+        private System.Windows.Forms.Label lblDy;
         private System.Windows.Forms.TextBox txtBoxPosX;
         private System.Windows.Forms.TextBox txtBoxPosY;
         private System.Windows.Forms.TextBox txtBoxDx;

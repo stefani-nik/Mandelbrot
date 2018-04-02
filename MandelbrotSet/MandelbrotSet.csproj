@@ -88,6 +88,11 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Assets\icon.ico" />
+    <Content Include="Assets\mandelbrot1.png" />
+    <Content Include="Assets\mandelbrot2.png" />
+    <Content Include="Assets\mandelbrot3.png" />
+    <Content Include="Assets\mandelbrot4.png" />
+    <Content Include="Assets\mandelbrot5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

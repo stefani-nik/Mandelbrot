@@ -26,15 +26,6 @@ namespace MandelbrotSet
             UpdateInputFields();
         }
    
-
-        private bool IsPointInPicture(int x, int y)
-        {
-            if (picBox.Width > x && picBox.Height > y)
-                return true;
-
-            return false;
-        }
-
         private void UpdateInputFields()
         {
             txtBoxPosX.Text = Mandelbrot.posX.ToString(CultureInfo.InvariantCulture);
@@ -55,6 +46,12 @@ namespace MandelbrotSet
             TimeSpan ts = renderingTime.Elapsed;
             lblTimer.Text = $"{ts.Seconds}:{ts.Milliseconds}";
         }
+
+        private bool MouseIsOverPicture(Control c)
+        {
+            return c.ClientRectangle.Contains(c.PointToClient(picBox.PointToScreen(zoomEnd)));
+        }
+
         #region EventHandlers
 
         private void btnRender_Click(object sender, EventArgs e)
@@ -71,7 +68,7 @@ namespace MandelbrotSet
 
         private void picBox_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && zoomStart == Point.Empty && IsPointInPicture(e.X, e.Y))
+            if (e.Button == MouseButtons.Left)
             {
                 zoomStart = new Point(e.X, e.Y);
                 Point rectStart = picBox.PointToScreen(new Point(e.X, e.Y));
@@ -81,29 +78,12 @@ namespace MandelbrotSet
         }
         private void picBox_MouseUp(object sender, MouseEventArgs e)
         {
-            if (zoomStart != Point.Empty && e.Button == MouseButtons.Left && isZooming && IsPointInPicture(e.X, e.Y))
+            if (isZooming)
             {
-
-                double zoomWidth = e.X - zoomStart.X;
-                double zoomHeight = e.Y - zoomStart.Y;
-
-                // to make it a square  
-                if (zoomWidth > zoomHeight)
-                {
-                    zoomHeight = zoomWidth;
-                }
-                else
-                {
-                    zoomWidth = zoomHeight;
-                }
-
-
-                zoomEnd = new Point((int)(zoomStart.X + zoomWidth), (int)(zoomStart.Y + zoomHeight));
 
                 StartRenderingTime();
                 this.picBox.Image = Mandelbrot.ZoomFractal(zoomStart, zoomEnd);
                 StopRenderingTime();
-
                 this.UpdateInputFields();
             }
 
@@ -116,28 +96,32 @@ namespace MandelbrotSet
 
         private void picBox_MouseMove(object sender, MouseEventArgs e)
         {
-            if (zoomStart != Point.Empty && isZooming && IsPointInPicture(e.X, e.Y))
-            {
-
-                ControlPaint.DrawReversibleFrame(zoomRectangle, this.BackColor, FrameStyle.Dashed);
-
-                double zoomWidth = e.X - zoomStart.X;
-                double zoomHeight = e.Y - zoomStart.Y;
-
-                // to make it a square  
-                if (zoomWidth > zoomHeight)
+          
+                if (isZooming && MouseIsOverPicture(this.picBox))
                 {
-                    zoomHeight = zoomWidth;
-                }
-                else
-                {
-                    zoomWidth = zoomHeight;
-                }
 
+                    ControlPaint.DrawReversibleFrame(zoomRectangle, this.BackColor, FrameStyle.Dashed);
 
-                zoomRectangle.Width = (int)zoomWidth;
-                zoomRectangle.Height = (int)zoomHeight;
-            }
+                    double zoomWidth = e.X - zoomStart.X;
+                    double zoomHeight = e.Y - zoomStart.Y;
+
+                    // to make it a square  
+                    if (zoomWidth > zoomHeight)
+                    {
+                        zoomHeight = zoomWidth;
+                    }
+                    else
+                    {
+                        zoomWidth = zoomHeight;
+                    }
+
+                    zoomEnd = new Point((int)(zoomStart.X + zoomWidth), (int)(zoomStart.Y + zoomHeight));
+
+                    zoomRectangle.Width = (int)zoomWidth;
+                    zoomRectangle.Height = (int)zoomHeight;
+
+                    ControlPaint.DrawReversibleFrame(zoomRectangle, this.BackColor, FrameStyle.Dashed);
+                }
         }
         #endregion
     }
