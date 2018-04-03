@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
+using MandelbrotSet.Contracts;
 
 namespace MandelbrotSet
 {
@@ -12,23 +13,24 @@ namespace MandelbrotSet
         private Point zoomStart = Point.Empty;
         private Point zoomEnd = Point.Empty;
         private bool isZooming = false;
-        private Rectangle zoomRectangle = new Rectangle();
-        private bool isFractalRendered = false;
+        private Rectangle zoomRectangle;
         private Stopwatch renderingTime;
+        readonly IFractal mandelFractal;
 
 
         public MandelForm()
         {
             InitializeComponent();
+            mandelFractal = new Mandelbrot();
             UpdateInputFields();
         }
    
         private void UpdateInputFields()
         {
-            txtBoxPosX.Text = Mandelbrot.posX.ToString(CultureInfo.InvariantCulture);
-            txtBoxPosY.Text = Mandelbrot.posY.ToString(CultureInfo.InvariantCulture);
-            txtBoxDx.Text = Mandelbrot.rangeStart.ToString(CultureInfo.InvariantCulture);
-            txtBoxDy.Text = Mandelbrot.rangeEnd.ToString(CultureInfo.InvariantCulture);
+            txtBoxPosX.Text = mandelFractal.PosX.ToString(CultureInfo.InvariantCulture);
+            txtBoxPosY.Text = mandelFractal.PosY.ToString(CultureInfo.InvariantCulture);
+            txtBoxDx.Text = mandelFractal.RangeStart.ToString(CultureInfo.InvariantCulture);
+            txtBoxDy.Text = mandelFractal.RangeEnd.ToString(CultureInfo.InvariantCulture);
         }
 
         private void StartRenderingTime()
@@ -55,9 +57,9 @@ namespace MandelbrotSet
         {
 
             int iterations = (int)iterationsUpDown.Value;
-            Mandelbrot.iterations = iterations;
+            mandelFractal.Iterations = iterations;
             StartRenderingTime();
-            picBox.Image = Mandelbrot.RenderSet();
+            picBox.Image = mandelFractal.ZoomFractal(new Point(0,0), new Point(400,400));
             StopRenderingTime();
            
         }
@@ -79,7 +81,7 @@ namespace MandelbrotSet
             {
 
                 StartRenderingTime();
-                this.picBox.Image = Mandelbrot.ZoomFractal(zoomStart, zoomEnd);
+                this.picBox.Image = mandelFractal.ZoomFractal(zoomStart, zoomEnd);
                 StopRenderingTime();
                 this.UpdateInputFields();
             }
@@ -102,7 +104,6 @@ namespace MandelbrotSet
                     double zoomWidth = e.X - zoomStart.X;
                     double zoomHeight = e.Y - zoomStart.Y;
 
-                    // to make it a square  
                     if (zoomWidth > zoomHeight)
                     {
                         zoomHeight = zoomWidth;

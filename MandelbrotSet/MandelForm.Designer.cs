@@ -161,7 +161,7 @@ namespace MandelbrotSet
             this.lblDx.Name = "lblDx";
             this.lblDx.Size = new System.Drawing.Size(80, 20);
             this.lblDx.TabIndex = 13;
-            this.lblDx.Text = "DX";
+            this.lblDx.Text = "From";
             this.lblDx.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDy
@@ -172,7 +172,7 @@ namespace MandelbrotSet
             this.lblDy.Name = "lblDy";
             this.lblDy.Size = new System.Drawing.Size(80, 20);
             this.lblDy.TabIndex = 14;
-            this.lblDy.Text = "DY";
+            this.lblDy.Text = "To";
             this.lblDy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtBoxPosX

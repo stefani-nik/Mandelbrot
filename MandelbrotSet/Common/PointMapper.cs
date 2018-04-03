@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Drawing;
+using MandelbrotSet.Contracts;
 
 namespace MandelbrotSet.Common
 {
-    public static class ExtensionMethods
+    public class PointMapper : IPointMapper
     {
       
-        public static Tuple<double,double> MapPoint(Point p)
+        public Tuple<double,double> MapPoint(Point p, double posX, double posY,
+                                                    double rangeStart, double rangeEnd)
         {
-            double posX = Mandelbrot.posX;
-            double posY = Mandelbrot.posY;
-            double rangeStart = Mandelbrot.rangeStart;
-            double rangeEnd = Mandelbrot.rangeEnd;
-
+         
             // TODO : Make it be less magical 
             double newPosX = posX - 0.5 * rangeStart;
             double newPosY = posY - 0.5 * rangeEnd;
