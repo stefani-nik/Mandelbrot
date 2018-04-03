@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 using MandelbrotSet.Common;
 using MandelbrotSet.Contracts;
 
@@ -14,12 +15,15 @@ namespace MandelbrotSet
         private Rectangle zoomRectangle;
         private int iterations = Constants.DefaultIterations;
 
+        private readonly BackgroundWorker backgroundWorker;
         private readonly IRenderer renderer;
 
         public MandelForm()
         {
             InitializeComponent();
-            renderer = new Renderer();
+            this.renderer = new Renderer();
+            this.backgroundWorker = new BackgroundWorker();
+            InitializeBackgroundWorker();
             UpdateFormFields();
         }
 
@@ -40,22 +44,34 @@ namespace MandelbrotSet
             return c.ClientRectangle.Contains(c.PointToClient(picBox.PointToScreen(zoomEnd)));
         }
 
+        private void InitializeBackgroundWorker()
+        {
+            this.backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
+        }
+
         #endregion
 
         #region EventHandlers
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            picBox.Image = renderer.RenderMandelbrot(zoomStart, zoomEnd, iterations);
+            this.UpdateFormFields();
+        }
+
 
         private void btnRender_Click(object sender, EventArgs e)
         {
 
             iterations = (int)iterationsUpDown.Value;
-            picBox.Image = renderer.RenderMandelbrot(zoomStart, zoomEnd, iterations);
-            UpdateFormFields();
+            backgroundWorker.RunWorkerAsync();
+            
         }
 
 
         private void picBox_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left && !backgroundWorker.IsBusy)
             {
                 zoomStart = new Point(e.X, e.Y);
                 Point rectStart = picBox.PointToScreen(new Point(e.X, e.Y));
@@ -65,10 +81,9 @@ namespace MandelbrotSet
         }
         private void picBox_MouseUp(object sender, MouseEventArgs e)
         {
-            if (isZooming)
+            if (isZooming && !backgroundWorker.IsBusy)
             {
-                this.picBox.Image = renderer.RenderMandelbrot(zoomStart, zoomEnd, iterations);
-                this.UpdateFormFields();
+                backgroundWorker.RunWorkerAsync();
             }
 
             zoomStart = Point.Empty;
@@ -81,7 +96,7 @@ namespace MandelbrotSet
         private void picBox_MouseMove(object sender, MouseEventArgs e)
         {
           
-                if (isZooming && MouseIsOverPicture(this.picBox))
+                if (isZooming && MouseIsOverPicture(this.picBox) && !backgroundWorker.IsBusy)
                 {
 
                     ControlPaint.DrawReversibleFrame(zoomRectangle, this.BackColor, FrameStyle.Dashed);

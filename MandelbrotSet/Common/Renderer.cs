@@ -9,18 +9,17 @@ namespace MandelbrotSet.Common
 {
     public class Renderer : IRenderer
     {
-        private readonly List<Color> palette;
-        private static int bitmapWidth = Constants.BitmapWidth;
-        private static  int bitmapHeight = Constants.BitmapHeight;
-         
+
         public Bitmap Bitmap;
+
+        private readonly List<Color> palette;
         private readonly IFractal mandel;
         private readonly Stopwatch renderTimer;
 
         public Renderer()
         {
             this.palette = ColorsManager.LoadPalette();
-            this.Bitmap = new Bitmap(bitmapWidth, bitmapHeight);
+            this.Bitmap = new Bitmap(Constants.BitmapWidth, Constants.BitmapHeight);
             this.mandel = new Mandelbrot();
             this.renderTimer = new Stopwatch();
         }
@@ -34,11 +33,23 @@ namespace MandelbrotSet.Common
             {
                 mandel.AdjustParameters(start, end);
             }
-           
 
-            for (int y = 0; y < bitmapHeight; y++)
+
+            //for (int y = 0; y < Constants.BitmapHeight; y++)
+            //{
+            //    for (int x = 0; x < Constants.BitmapWidth; x++)
+            //    {
+            //        int iter = mandel.GetNextPixel(x, y, iterations);
+
+            //        Color pixelColor = iter == iterations ? Color.White : palette[iter % palette.Count];
+
+            //        Bitmap.SetPixel(x, y, pixelColor);
+            //    }
+            //}
+
+            for (int y = 0; y < Constants.BitmapHeight; y++)
             {
-                for (int x = 0; x < bitmapWidth; x++)
+                for (int x = 0; x < Constants.BitmapWidth; x++)
                 {
                     int iter = mandel.GetNextPixel(x, y, iterations);
 

@@ -1,8 +1,7 @@
 ﻿using System.Drawing;
-using MandelbrotSet.Common;
 using MandelbrotSet.Contracts;
 
-namespace MandelbrotSet
+namespace MandelbrotSet.Common
 {
     public class Mandelbrot : IFractal
     {
