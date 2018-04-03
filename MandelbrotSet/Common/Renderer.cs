@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
+using System.Threading.Tasks;
 using MandelbrotSet.Contracts;
 
 namespace MandelbrotSet.Common
@@ -10,7 +12,7 @@ namespace MandelbrotSet.Common
     public class Renderer : IRenderer
     {
 
-        public Bitmap Bitmap;
+        public Bitmap MyBitmap;
 
         private readonly List<Color> palette;
         private readonly IFractal mandel;
@@ -19,7 +21,7 @@ namespace MandelbrotSet.Common
         public Renderer()
         {
             this.palette = ColorsManager.LoadPalette();
-            this.Bitmap = new Bitmap(Constants.BitmapWidth, Constants.BitmapHeight);
+            this.MyBitmap = new Bitmap(Constants.BitmapWidth, Constants.BitmapHeight);
             this.mandel = new Mandelbrot();
             this.renderTimer = new Stopwatch();
         }
@@ -43,25 +45,46 @@ namespace MandelbrotSet.Common
 
             //        Color pixelColor = iter == iterations ? Color.White : palette[iter % palette.Count];
 
-            //        Bitmap.SetPixel(x, y, pixelColor);
+            //        MyBitmap.SetPixel(x, y, pixelColor);
             //    }
             //}
 
-            for (int y = 0; y < Constants.BitmapHeight; y++)
+
+            unsafe
             {
-                for (int x = 0; x < Constants.BitmapWidth; x++)
+                BitmapData data = MyBitmap.LockBits(new Rectangle(0, 0, MyBitmap.Width, MyBitmap.Height),
+                                                    ImageLockMode.ReadWrite, MyBitmap.PixelFormat);
+
+                int bytesPerPixel = Bitmap.GetPixelFormatSize(MyBitmap.PixelFormat) / 8;
+                int heightInPixels = data.Height;
+                int widthInBytes = data.Width * bytesPerPixel;
+                byte* PtrFirstPixel = (byte*)data.Scan0;
+
+
+                Parallel.For(0, heightInPixels, y =>
                 {
-                    int iter = mandel.GetNextPixel(x, y, iterations);
+                    byte* line = PtrFirstPixel + (y * data.Stride);
+                    int xPos = 0;
 
-                    Color pixelColor = iter == iterations ? Color.White : palette[iter % palette.Count];
+                    for (int x = 0; x < widthInBytes; x = x + bytesPerPixel)
+                    {
+                        int iter = mandel.GetNextPixel(xPos, y, iterations);
+                        Color pixelColor = iter == iterations ? Color.White : palette[iter%palette.Count];
 
-                    Bitmap.SetPixel(x, y, pixelColor);
-                }
+                        line[x + 0] = pixelColor.B;
+                        line[x + 1] = pixelColor.G;
+                        line[x + 2] = pixelColor.R;
+                        line[x + 3] = pixelColor.A;
+
+                        xPos++;
+                    }
+                });
+                MyBitmap.UnlockBits(data);
             }
 
             this.renderTimer.Stop();
 
-            return Bitmap;
+            return MyBitmap;
         }
 
         public string GetCurrentX()
