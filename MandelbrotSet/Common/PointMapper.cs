@@ -11,7 +11,6 @@ namespace MandelbrotSet.Common
                                                     double rangeStart, double rangeEnd)
         {
          
-            // TODO : Make it be less magical 
             double newPosX = posX - 0.5 * rangeStart;
             double newPosY = posY - 0.5 * rangeEnd;
 

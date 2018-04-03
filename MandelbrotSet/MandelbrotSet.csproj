@@ -50,8 +50,9 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\PointMapper.cs" />
     <Compile Include="Common\Renderer.cs" />
-    <Compile Include="ComplexPoint.cs" />
+    <Compile Include="Common\ComplexPoint.cs" />
     <Compile Include="Contracts\IComplexPoint.cs" />
+    <Compile Include="Contracts\IFormFacade.cs" />
     <Compile Include="Contracts\IFractal.cs" />
     <Compile Include="Contracts\IPointMapper.cs" />
     <Compile Include="Contracts\IRenderer.cs" />

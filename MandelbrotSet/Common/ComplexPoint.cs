@@ -22,7 +22,7 @@ namespace MandelbrotSet
             return Math.Sqrt(this.Re * this.Re + this.Im * this.Im);
         }
 
-        public void GetSqrt()
+        public void Sqrt()
         {
             double temp = (this.Re * this.Re) - (this.Im * this.Im);
             this.Im = 2.0 * this.Re * this.Im;
@@ -35,10 +35,5 @@ namespace MandelbrotSet
             return new ComplexPoint(c1.Re + c2.Re, c1.Im + c2.Im);
         }
 
-        //public IComplexPoint Add(ComplexPoint c)
-        //{
-        //    this.Re += c.Re;
-        //    this.Im += c.Im;
-        //}
     }
 }

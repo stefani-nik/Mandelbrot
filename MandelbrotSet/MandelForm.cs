@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
-using System.Threading;
 using System.Windows.Forms;
+using MandelbrotSet.Common;
 using MandelbrotSet.Contracts;
 
 namespace MandelbrotSet
@@ -14,36 +12,27 @@ namespace MandelbrotSet
         private Point zoomEnd = Point.Empty;
         private bool isZooming = false;
         private Rectangle zoomRectangle;
-        private Stopwatch renderingTime;
-        readonly IFractal mandelFractal;
+        private int iterations = Constants.DefaultIterations;
 
+        private readonly IRenderer renderer;
 
         public MandelForm()
         {
             InitializeComponent();
-            mandelFractal = new Mandelbrot();
-            UpdateInputFields();
-        }
-   
-        private void UpdateInputFields()
-        {
-            txtBoxPosX.Text = mandelFractal.PosX.ToString(CultureInfo.InvariantCulture);
-            txtBoxPosY.Text = mandelFractal.PosY.ToString(CultureInfo.InvariantCulture);
-            txtBoxDx.Text = mandelFractal.RangeStart.ToString(CultureInfo.InvariantCulture);
-            txtBoxDy.Text = mandelFractal.RangeEnd.ToString(CultureInfo.InvariantCulture);
+            renderer = new Renderer();
+            UpdateFormFields();
         }
 
-        private void StartRenderingTime()
-        {
-            renderingTime = new Stopwatch();
-            renderingTime.Start();
-        }
 
-        private void StopRenderingTime()
+        #region HelperMethods
+
+        private void UpdateFormFields()
         {
-            renderingTime.Stop();
-            TimeSpan ts = renderingTime.Elapsed;
-            lblTimer.Text = $"{ts.Seconds}:{ts.Milliseconds}";
+            txtBoxPosX.Text = renderer.GetCurrentX();
+            txtBoxPosY.Text = renderer.GetCurrentY();
+            txtBoxDx.Text = renderer.GetCurrentRangeStart();
+            txtBoxDy.Text = renderer.GetCurrentRangeEnd();
+            lblTimer.Text = renderer.GetRenderingTime();
         }
 
         private bool MouseIsOverPicture(Control c)
@@ -51,17 +40,16 @@ namespace MandelbrotSet
             return c.ClientRectangle.Contains(c.PointToClient(picBox.PointToScreen(zoomEnd)));
         }
 
+        #endregion
+
         #region EventHandlers
 
         private void btnRender_Click(object sender, EventArgs e)
         {
 
-            int iterations = (int)iterationsUpDown.Value;
-            mandelFractal.Iterations = iterations;
-            StartRenderingTime();
-            picBox.Image = mandelFractal.ZoomFractal(new Point(0,0), new Point(400,400));
-            StopRenderingTime();
-           
+            iterations = (int)iterationsUpDown.Value;
+            picBox.Image = renderer.RenderMandelbrot(zoomStart, zoomEnd, iterations);
+            UpdateFormFields();
         }
 
 
@@ -79,11 +67,8 @@ namespace MandelbrotSet
         {
             if (isZooming)
             {
-
-                StartRenderingTime();
-                this.picBox.Image = mandelFractal.ZoomFractal(zoomStart, zoomEnd);
-                StopRenderingTime();
-                this.UpdateInputFields();
+                this.picBox.Image = renderer.RenderMandelbrot(zoomStart, zoomEnd, iterations);
+                this.UpdateFormFields();
             }
 
             zoomStart = Point.Empty;

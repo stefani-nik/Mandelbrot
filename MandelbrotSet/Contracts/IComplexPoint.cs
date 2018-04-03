@@ -3,6 +3,6 @@
     public interface IComplexPoint
     {
         double GetModulus();
-        void GetSqrt();
+        void Sqrt();
     }
 }

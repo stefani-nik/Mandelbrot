@@ -4,12 +4,11 @@ namespace MandelbrotSet.Contracts
 {
     public interface IFractal
     {
-        double PosX { get; set; }
-        double PosY { get; set; }
-        double RangeStart { get; set; }
-        double RangeEnd { get; set; }
-        int Iterations { get; set; }
-        Bitmap RenderFractal();
-        Bitmap ZoomFractal(Point zoomStart, Point zoomEnd);
+        double PosX { get; }
+        double PosY { get; }
+        double RangeStart { get; }
+        double RangeEnd { get;  }
+        int GetNextPixel(int x, int y, int iterations);
+        void AdjustParameters(Point zoomStart, Point zoomEnd);
     }
 }
