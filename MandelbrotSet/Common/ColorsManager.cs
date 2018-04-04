@@ -3,8 +3,12 @@ using System.Drawing;
 
 namespace MandelbrotSet.Common
 {
+    /// <summary>
+    /// Static which is responsible for creating the color palette 
+    /// </summary>
     public static class ColorsManager
     {
+
         public static int interval = Constants.ColorsInterval;
         public static readonly List<Color> colors = new List<Color>();
 

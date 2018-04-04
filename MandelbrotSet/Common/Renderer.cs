@@ -9,6 +9,10 @@ using MandelbrotSet.Contracts;
 
 namespace MandelbrotSet.Common
 {
+    /// <summary>
+    /// Class responsible for rendering the Mandelbrot set 
+    /// and getting information about its parameters
+    /// </summary>
     public class Renderer : IRenderer
     {
 
@@ -26,37 +30,41 @@ namespace MandelbrotSet.Common
             this.renderTimer = new Stopwatch();
         }
         
-
+        /// <summary>
+        /// Multithreading rendering of the Mandelbrot set
+        /// </summary>
         public Bitmap RenderMandelbrot(Point start, Point end, int iterations)
         {
             this.renderTimer.Start();
 
+            // If the points are not empty the fractal is zoom and adjustment of the parameters is needed
             if (start != Point.Empty && end != Point.Empty)
             {
                 mandel.AdjustParameters(start, end);
             }
+
 
             unsafe
             {
                 BitmapData data = MyBitmap.LockBits(new Rectangle(0, 0, MyBitmap.Width, MyBitmap.Height),
                                                     ImageLockMode.ReadWrite, MyBitmap.PixelFormat);
 
-                int bytesPerPixel = Bitmap.GetPixelFormatSize(MyBitmap.PixelFormat) / 8;
-                int heightInPixels = data.Height;
+                int bytesPerPixel = Bitmap.GetPixelFormatSize(MyBitmap.PixelFormat) / 8; // The default is 32 bits
+                int heightInPixels = data.Height; 
                 int widthInBytes = data.Width * bytesPerPixel;
-                byte* PtrFirstPixel = (byte*)data.Scan0;
+                byte* PtrFirstPixel = (byte*)data.Scan0; // pointer to the first pixel of the bitmap
 
 
                 var options = new ParallelOptions {MaxDegreeOfParallelism = Environment.ProcessorCount - 1};
 
                 Parallel.For(0, heightInPixels, options, y =>
                 {
-                    byte* line = PtrFirstPixel + (y * data.Stride);
-                    int xPos = 0;
+                    byte* line = PtrFirstPixel + (y * data.Stride); // pointer to the current line first pixel
+                    int xInPixels = 0;
 
                     for (int x = 0; x < widthInBytes; x = x + bytesPerPixel)
                     {
-                        int iter = mandel.GetNextPixel(xPos, y, iterations);
+                        int iter = mandel.GetNextPixel(xInPixels, y, iterations);
                         Color pixelColor = iter == iterations ? Color.White : palette[iter%palette.Count];
 
                         line[x + 0] = pixelColor.B;
@@ -64,7 +72,7 @@ namespace MandelbrotSet.Common
                         line[x + 2] = pixelColor.R;
                         line[x + 3] = pixelColor.A;
 
-                        xPos++;
+                        xInPixels++;
                     }
                 });
                 MyBitmap.UnlockBits(data);

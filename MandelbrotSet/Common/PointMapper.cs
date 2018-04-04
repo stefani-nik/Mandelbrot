@@ -6,7 +6,11 @@ namespace MandelbrotSet.Common
 {
     public class PointMapper : IPointMapper
     {
-      
+
+        /// <summary>
+        /// According to the given parameters calculates the coordinates
+        /// of the point so that they correspond to coordinates in the given range 
+        /// </summary>
         public Tuple<double,double> MapPoint(Point p, double posX, double posY,
                                                     double rangeStart, double rangeEnd)
         {

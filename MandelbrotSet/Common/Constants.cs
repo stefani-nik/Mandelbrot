@@ -11,6 +11,10 @@
         public const double PositionY = 0.0;
         public const double RangeStart = 4.0;
         public const double RangeEnd = 4.0;
+        public const double StartValueX = -2.0; // 
+        public const double StartValueY = -2.0;
+        public const double StartOffsetX = 0.01;
+        public const double StartOffsetY = 0.01;
         public const int MinIterations = 0;
         public const int DefaultIterations = 128;
         public const int MaxIterations = 5000;
