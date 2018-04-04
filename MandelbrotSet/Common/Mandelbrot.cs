@@ -9,16 +9,14 @@ namespace MandelbrotSet.Common
     public sealed class Mandelbrot : IFractal
     {
 
-        public double PosX { get; private set; } = Constants.PositionX;
+        public double XStartValue { get; private set; } = Constants.StartValueX;
 
-        public double PosY { get; private set; } = Constants.PositionY;
+        public double YStartValue { get; private set; } = Constants.StartValueY;
 
-        public double RangeStart { get; private set; } = Constants.RangeStart;
+        public double XRange { get; private set; } = Constants.RangeStart;
 
-        public double RangeEnd { get; private set; } = Constants.RangeEnd;
+        public double YRange { get; private set; } = Constants.RangeEnd;
 
-        private double xStartValue =  Constants.StartValueX;
-        private double yStartValue = Constants.StartValueY;
         private double xOffset = Constants.StartOffsetX;
         private double yOffset = Constants.StartOffsetY;
 
@@ -27,9 +25,9 @@ namespace MandelbrotSet.Common
         /// </summary>
         public int GetNextPixel(int x, int y, int iterations)
         {
-            
-            double xValue = xStartValue + xOffset * x;
-            double yValue = yStartValue + yOffset * y;
+
+            double xValue = this.XStartValue + this.xOffset * x;
+            double yValue = this.YStartValue + this.yOffset * y;
 
             ComplexPoint c = new ComplexPoint(xValue, yValue);
             ComplexPoint z = new ComplexPoint(0, 0);
@@ -50,27 +48,21 @@ namespace MandelbrotSet.Common
 
         public void AdjustParameters(Point zoomStart, Point zoomEnd)
         {
-            IPointMapper mapper = new PointMapper();
-            var mappedStartPoint = mapper.MapPoint(zoomStart, PosX, PosY, RangeStart, RangeEnd);
-            var mappedEndPont = mapper.MapPoint(zoomEnd, PosX, PosY, RangeStart, RangeEnd);
+            double startX = this.XRange * zoomStart.X / Constants.BitmapWidth;
+            double startY = this.YRange * zoomStart.Y / Constants.BitmapWidth;
 
-            double startX = mappedStartPoint.Item1;
-            double startY = mappedStartPoint.Item2;
-
-            double endX = mappedEndPont.Item1;
-            double endY = mappedEndPont.Item2;
+            double endX = this.XRange * zoomEnd.X / Constants.BitmapWidth;
+            double endY = this.YRange * zoomEnd.Y / Constants.BitmapWidth;
 
 
-            // Asign the fractal parameters
-            this.PosX = (startX + endX) / 2.0;
-            this.PosY = (startY + endY) / 2.0;
-            this.RangeStart = endX - startX;
-            this.RangeEnd = endY - startY;
+            this.XStartValue += startX;
+            this.YStartValue += startY;
 
-            this.xStartValue = (this.PosX - this.RangeStart / 2.0);
-            this.yStartValue = (this.PosY - this.RangeEnd / 2.0);
-            this.xOffset = this.RangeStart / (double)Constants.BitmapWidth;
-            this.yOffset = this.RangeEnd / (double)Constants.BitmapWidth;
+            this.XRange = endX - startX;
+            this.YRange = endY - startY;
+
+            this.xOffset = (endX - startX) / (double)Constants.BitmapWidth;
+            this.yOffset = (endY - startY) / (double)Constants.BitmapWidth;
 
         }
 

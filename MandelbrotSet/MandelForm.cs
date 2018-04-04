@@ -37,7 +37,6 @@ namespace MandelbrotSet
             this.txtBoxPosY.Text = renderer.GetCurrentY();
             this.txtBoxDx.Text = renderer.GetCurrentRangeStart();
             this.txtBoxDy.Text = renderer.GetCurrentRangeEnd();
-            this.lblTimer.Text = renderer.GetRenderingTime();
         }
 
         private bool MouseIsOverPicture(Control c)
@@ -48,6 +47,7 @@ namespace MandelbrotSet
         private void InitializeBackgroundWorker()
         {
             this.backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
+            this.backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker_RunWorkerCompleted);
         }
 
 
@@ -58,6 +58,14 @@ namespace MandelbrotSet
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             this.picBox.Image = renderer.RenderMandelbrot(zoomStart, zoomEnd, iterations);
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(
+            object sender,
+            RunWorkerCompletedEventArgs e)
+        {
+            this.isFractalRendered = true;
+            this.lblTimer.Text = renderer.GetRenderingTime();
             this.UpdateFormFields();
         }
 
@@ -66,7 +74,6 @@ namespace MandelbrotSet
         {
             this.iterations = (int)iterationsUpDown.Value;
             this.backgroundWorker.RunWorkerAsync();
-            this.isFractalRendered = true;
             this.picBox.Cursor = Cursors.Cross;
         }
 

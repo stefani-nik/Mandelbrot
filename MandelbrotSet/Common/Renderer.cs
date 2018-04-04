@@ -85,19 +85,19 @@ namespace MandelbrotSet.Common
 
         public string GetCurrentX()
         {
-            return this.mandel.PosX.ToString(CultureInfo.InvariantCulture);
+            return this.mandel.XStartValue.ToString(CultureInfo.InvariantCulture);
         }
         public string GetCurrentY()
         {
-            return this.mandel.PosY.ToString(CultureInfo.InvariantCulture);
+            return this.mandel.YStartValue.ToString(CultureInfo.InvariantCulture);
         }
         public string GetCurrentRangeStart()
         {
-            return this.mandel.RangeStart.ToString(CultureInfo.InvariantCulture);
+            return this.mandel.XRange.ToString(CultureInfo.InvariantCulture);
         }
         public string GetCurrentRangeEnd()
         {
-            return this.mandel.RangeEnd.ToString(CultureInfo.InvariantCulture);
+            return this.mandel.YRange.ToString(CultureInfo.InvariantCulture);
         }
 
         public string GetRenderingTime()
