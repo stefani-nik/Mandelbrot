@@ -1,5 +1,8 @@
 ﻿namespace MandelbrotSet.Common
 {
+    /// <summary>
+    /// Basic static class which holds the application constants
+    /// </summary>
     public static class Constants
     {
         public const int BitmapWidth = 400;

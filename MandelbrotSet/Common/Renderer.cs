@@ -47,7 +47,9 @@ namespace MandelbrotSet.Common
                 byte* PtrFirstPixel = (byte*)data.Scan0;
 
 
-                Parallel.For(0, heightInPixels, y =>
+                var options = new ParallelOptions {MaxDegreeOfParallelism = Environment.ProcessorCount - 1};
+
+                Parallel.For(0, heightInPixels, options, y =>
                 {
                     byte* line = PtrFirstPixel + (y * data.Stride);
                     int xPos = 0;
