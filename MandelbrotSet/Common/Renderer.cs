@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using MandelbrotSet.Contracts;
 
@@ -29,7 +30,7 @@ namespace MandelbrotSet.Common
             this.mandel = new Mandelbrot();
             this.renderTimer = new Stopwatch();
         }
-        
+
         /// <summary>
         /// Multithreading rendering of the Mandelbrot set
         /// </summary>
@@ -44,41 +45,40 @@ namespace MandelbrotSet.Common
             }
 
 
-            unsafe
-            {
-                BitmapData data = MyBitmap.LockBits(new Rectangle(0, 0, MyBitmap.Width, MyBitmap.Height),
+            int width = MyBitmap.Width;
+            int height = MyBitmap.Height;
+            int bytesPerPixel = Bitmap.GetPixelFormatSize(MyBitmap.PixelFormat) / 8; // The default is 32 bits
+
+            BitmapData data = MyBitmap.LockBits(new Rectangle(0, 0, MyBitmap.Width, MyBitmap.Height),
                                                     ImageLockMode.ReadWrite, MyBitmap.PixelFormat);
 
-                int bytesPerPixel = Bitmap.GetPixelFormatSize(MyBitmap.PixelFormat) / 8; // The default is 32 bits
-                int heightInPixels = data.Height; 
-                int widthInBytes = data.Width * bytesPerPixel;
-                byte* PtrFirstPixel = (byte*)data.Scan0; // pointer to the first pixel of the bitmap
+    
+            IntPtr PtrFirstPixel = data.Scan0; // pointer to the first pixel of the bitmap
+            byte[] Pixels = new byte[data.Height * data.Width * bytesPerPixel];
 
+            var options = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount - 1 };
 
-                var options = new ParallelOptions {MaxDegreeOfParallelism = Environment.ProcessorCount - 1};
-
-                Parallel.For(0, heightInPixels, options, y =>
+                Parallel.For(0, height, options, y =>
                 {
-                    byte* line = PtrFirstPixel + (y * data.Stride); // pointer to the current line first pixel
-                    int xInPixels = 0;
-
-                    for (int x = 0; x < widthInBytes; x = x + bytesPerPixel)
+                   
+                    for (int x = 0; x < width; x++)
                     {
-                        int iter = mandel.GetNextPixel(xInPixels, y, iterations);
-                        Color pixelColor = iter == iterations ? Color.White : palette[iter%palette.Count];
+                        int index = ((y * width) + x) * bytesPerPixel;
+                        int iter = mandel.GetNextPixel(x, y, iterations);
+                        Color pixelColor = iter == iterations ? Color.White : palette[iter % palette.Count];
 
-                        line[x + 0] = pixelColor.B;
-                        line[x + 1] = pixelColor.G;
-                        line[x + 2] = pixelColor.R;
-                        line[x + 3] = pixelColor.A;
+                        Pixels[index + 0] = pixelColor.B;
+                        Pixels[index + 1] = pixelColor.G;
+                        Pixels[index + 2] = pixelColor.R;
+                        Pixels[index + 3] = pixelColor.A;
 
-                        xInPixels++;
                     }
                 });
-                MyBitmap.UnlockBits(data);
-            }
 
-            this.renderTimer.Stop();
+            Marshal.Copy(Pixels, 0, PtrFirstPixel, Pixels.Length);
+
+            MyBitmap.UnlockBits(data);
+            
 
             return MyBitmap;
         }
