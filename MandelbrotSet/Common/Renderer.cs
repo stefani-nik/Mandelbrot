@@ -36,20 +36,6 @@ namespace MandelbrotSet.Common
                 mandel.AdjustParameters(start, end);
             }
 
-
-            //for (int y = 0; y < Constants.BitmapHeight; y++)
-            //{
-            //    for (int x = 0; x < Constants.BitmapWidth; x++)
-            //    {
-            //        int iter = mandel.GetNextPixel(x, y, iterations);
-
-            //        Color pixelColor = iter == iterations ? Color.White : palette[iter % palette.Count];
-
-            //        MyBitmap.SetPixel(x, y, pixelColor);
-            //    }
-            //}
-
-
             unsafe
             {
                 BitmapData data = MyBitmap.LockBits(new Rectangle(0, 0, MyBitmap.Width, MyBitmap.Height),

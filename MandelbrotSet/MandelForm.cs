@@ -11,20 +11,21 @@ namespace MandelbrotSet
     {
         private Point zoomStart = Point.Empty;
         private Point zoomEnd = Point.Empty;
-        private bool isZooming = false;
         private Rectangle zoomRectangle;
+        private bool isZooming = false;
         private int iterations = Constants.DefaultIterations;
+        private bool isFractalRendered = false;
 
         private readonly BackgroundWorker backgroundWorker;
         private readonly IRenderer renderer;
 
         public MandelForm()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.renderer = new Renderer();
             this.backgroundWorker = new BackgroundWorker();
-            InitializeBackgroundWorker();
-            UpdateFormFields();
+            this.InitializeBackgroundWorker();
+            this.UpdateFormFields();
         }
 
 
@@ -32,11 +33,11 @@ namespace MandelbrotSet
 
         private void UpdateFormFields()
         {
-            txtBoxPosX.Text = renderer.GetCurrentX();
-            txtBoxPosY.Text = renderer.GetCurrentY();
-            txtBoxDx.Text = renderer.GetCurrentRangeStart();
-            txtBoxDy.Text = renderer.GetCurrentRangeEnd();
-            lblTimer.Text = renderer.GetRenderingTime();
+            this.txtBoxPosX.Text = renderer.GetCurrentX();
+            this.txtBoxPosY.Text = renderer.GetCurrentY();
+            this.txtBoxDx.Text = renderer.GetCurrentRangeStart();
+            this.txtBoxDy.Text = renderer.GetCurrentRangeEnd();
+            this.lblTimer.Text = renderer.GetRenderingTime();
         }
 
         private bool MouseIsOverPicture(Control c)
@@ -49,54 +50,54 @@ namespace MandelbrotSet
             this.backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
         }
 
+
         #endregion
 
         #region EventHandlers
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            picBox.Image = renderer.RenderMandelbrot(zoomStart, zoomEnd, iterations);
+            this.picBox.Image = renderer.RenderMandelbrot(zoomStart, zoomEnd, iterations);
             this.UpdateFormFields();
         }
 
 
         private void btnRender_Click(object sender, EventArgs e)
         {
-
-            iterations = (int)iterationsUpDown.Value;
-            backgroundWorker.RunWorkerAsync();
-            
+            this.iterations = (int)iterationsUpDown.Value;
+            this.backgroundWorker.RunWorkerAsync();
+            this.isFractalRendered = true;
+            this.picBox.Cursor = Cursors.Cross;
         }
 
 
         private void picBox_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && !backgroundWorker.IsBusy)
+            if (e.Button == MouseButtons.Left && !backgroundWorker.IsBusy && isFractalRendered)
             {
-                zoomStart = new Point(e.X, e.Y);
+                this.zoomStart = new Point(e.X, e.Y);
                 Point rectStart = picBox.PointToScreen(new Point(e.X, e.Y));
-                zoomRectangle = new Rectangle(rectStart.X, rectStart.Y, 0, 0);
-                isZooming = true;
+                this.zoomRectangle = new Rectangle(rectStart.X, rectStart.Y, 0, 0);
+                this.isZooming = true;
             }
         }
         private void picBox_MouseUp(object sender, MouseEventArgs e)
         {
-            if (isZooming && !backgroundWorker.IsBusy)
+            if (isZooming && !backgroundWorker.IsBusy && isFractalRendered)
             {
-                backgroundWorker.RunWorkerAsync();
+                this.backgroundWorker.RunWorkerAsync();
             }
 
-            zoomStart = Point.Empty;
-            zoomEnd = Point.Empty;
-            isZooming = false;
-            this.Cursor = DefaultCursor;
+            this.zoomStart = Point.Empty;
+            this.zoomEnd = Point.Empty;
+            this.isZooming = false;
         }
 
 
         private void picBox_MouseMove(object sender, MouseEventArgs e)
         {
           
-                if (isZooming && MouseIsOverPicture(this.picBox) && !backgroundWorker.IsBusy)
+                if (isZooming && MouseIsOverPicture(this.picBox) && !backgroundWorker.IsBusy && isFractalRendered)
                 {
 
                     ControlPaint.DrawReversibleFrame(zoomRectangle, this.BackColor, FrameStyle.Dashed);
@@ -113,10 +114,10 @@ namespace MandelbrotSet
                         zoomWidth = zoomHeight;
                     }
 
-                    zoomEnd = new Point((int)(zoomStart.X + zoomWidth), (int)(zoomStart.Y + zoomHeight));
+                    this.zoomEnd = new Point((int)(zoomStart.X + zoomWidth), (int)(zoomStart.Y + zoomHeight));
 
-                    zoomRectangle.Width = (int)zoomWidth;
-                    zoomRectangle.Height = (int)zoomHeight;
+                    this.zoomRectangle.Width = (int)zoomWidth;
+                    this.zoomRectangle.Height = (int)zoomHeight;
 
                     ControlPaint.DrawReversibleFrame(zoomRectangle, this.BackColor, FrameStyle.Dashed);
                 }

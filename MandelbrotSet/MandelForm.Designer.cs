@@ -72,7 +72,7 @@ namespace MandelbrotSet
             this.picBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picBox.BackgroundImage")));
             this.picBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.picBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBox.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.picBox.Cursor = System.Windows.Forms.Cursors.Default;
             this.picBox.Location = new System.Drawing.Point(30, 30);
             this.picBox.Name = "picBox";
             this.picBox.Size = new System.Drawing.Size(400, 400);
@@ -88,7 +88,7 @@ namespace MandelbrotSet
             this.iterationsUpDown.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.iterationsUpDown.Location = new System.Drawing.Point(484, 71);
             this.iterationsUpDown.Maximum = new decimal(new int[] {
-            3000,
+            5000,
             0,
             0,
             0});

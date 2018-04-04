@@ -3,7 +3,7 @@ using MandelbrotSet.Contracts;
 
 namespace MandelbrotSet.Common
 {
-    public class Mandelbrot : IFractal
+    public sealed class Mandelbrot : IFractal
     {
 
         public double PosX { get; private set; } = Constants.PositionX;
