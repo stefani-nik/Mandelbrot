@@ -54,7 +54,7 @@ namespace MandelbrotSet.Common
 
     
             IntPtr PtrFirstPixel = data.Scan0; // pointer to the first pixel of the bitmap
-            byte[] Pixels = new byte[data.Height * data.Width * bytesPerPixel];
+            byte[] pixels = new byte[width * height* bytesPerPixel];
 
             var options = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount - 1 };
 
@@ -64,21 +64,25 @@ namespace MandelbrotSet.Common
                     for (int x = 0; x < width; x++)
                     {
                         int index = ((y * width) + x) * bytesPerPixel;
+
                         int iter = mandel.GetNextPixel(x, y, iterations);
                         Color pixelColor = iter == iterations ? Color.White : palette[iter % palette.Count];
 
-                        Pixels[index + 0] = pixelColor.B;
-                        Pixels[index + 1] = pixelColor.G;
-                        Pixels[index + 2] = pixelColor.R;
-                        Pixels[index + 3] = pixelColor.A;
+                        pixels[index + 0] = pixelColor.B;
+                        pixels[index + 1] = pixelColor.G;
+                        pixels[index + 2] = pixelColor.R;
+                        pixels[index + 3] = pixelColor.A;
 
                     }
                 });
 
-            Marshal.Copy(Pixels, 0, PtrFirstPixel, Pixels.Length);
+
+            // Copy the Pixels array from start index 0 into the data of the Bitmap 
+            Marshal.Copy(pixels, 0, PtrFirstPixel, pixels.Length);
 
             MyBitmap.UnlockBits(data);
             
+            this.renderTimer.Stop();
 
             return MyBitmap;
         }

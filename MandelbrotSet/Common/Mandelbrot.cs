@@ -13,9 +13,9 @@ namespace MandelbrotSet.Common
 
         public double YStartValue { get; private set; } = Constants.StartValueY;
 
-        public double XRange { get; private set; } = Constants.RangeStart;
+        public double XRange { get; private set; } = Constants.XRange;
 
-        public double YRange { get; private set; } = Constants.RangeEnd;
+        public double YRange { get; private set; } = Constants.YRange;
 
         private double xOffset = Constants.StartOffsetX;
         private double yOffset = Constants.StartOffsetY;
@@ -23,11 +23,11 @@ namespace MandelbrotSet.Common
         /// <summary>
         /// Calculates the next pixel with the equation Z(n+1) = Z(n)^2 + C
         /// </summary>
-        public int GetNextPixel(int x, int y, int iterations)
+        public int GetNextPixel(int coordX, int coordY, int iterations)
         {
 
-            double xValue = this.XStartValue + this.xOffset * x;
-            double yValue = this.YStartValue + this.yOffset * y;
+            double xValue = this.XStartValue + this.xOffset * coordX;
+            double yValue = this.YStartValue + this.yOffset * coordY;
 
             ComplexPoint c = new ComplexPoint(xValue, yValue);
             ComplexPoint z = new ComplexPoint(0, 0);
@@ -46,6 +46,9 @@ namespace MandelbrotSet.Common
             return it;
         }
 
+        /// <summary>
+        /// Adjusts the parameters of the set according to the zoom strat and end points
+        /// </summary>
         public void AdjustParameters(Point zoomStart, Point zoomEnd)
         {
             double startX = this.XRange * zoomStart.X / Constants.BitmapWidth;

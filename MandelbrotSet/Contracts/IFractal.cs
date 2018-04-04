@@ -8,7 +8,7 @@ namespace MandelbrotSet.Contracts
         double YStartValue { get; }
         double XRange { get; }
         double YRange { get;  }
-        int GetNextPixel(int x, int y, int iterations);
+        int GetNextPixel(int coordX, int coordY, int iterations);
         void AdjustParameters(Point zoomStart, Point zoomEnd);
     }
 }

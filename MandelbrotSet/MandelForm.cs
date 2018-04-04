@@ -9,6 +9,8 @@ namespace MandelbrotSet
 {
     public partial class MandelForm : Form
     {
+        #region Members
+
         private Point zoomStart = Point.Empty;
         private Point zoomEnd = Point.Empty;
         private Rectangle zoomRectangle;
@@ -18,6 +20,8 @@ namespace MandelbrotSet
 
         private readonly BackgroundWorker backgroundWorker;
         private readonly IRenderer renderer;
+
+        #endregion
 
         public MandelForm()
         {
@@ -97,6 +101,7 @@ namespace MandelbrotSet
         {
             if (isZooming && !backgroundWorker.IsBusy && isFractalRendered)
             {
+                isFractalRendered = false;
                 this.backgroundWorker.RunWorkerAsync();
             }
 

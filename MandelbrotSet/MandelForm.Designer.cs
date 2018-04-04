@@ -139,7 +139,7 @@ namespace MandelbrotSet
             this.lblPosX.Name = "lblPosX";
             this.lblPosX.Size = new System.Drawing.Size(80, 20);
             this.lblPosX.TabIndex = 11;
-            this.lblPosX.Text = "Position X";
+            this.lblPosX.Text = "Start X";
             this.lblPosX.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPosY
@@ -150,7 +150,7 @@ namespace MandelbrotSet
             this.lblPosY.Name = "lblPosY";
             this.lblPosY.Size = new System.Drawing.Size(80, 20);
             this.lblPosY.TabIndex = 12;
-            this.lblPosY.Text = "Position Y";
+            this.lblPosY.Text = "Start Y";
             this.lblPosY.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDx
@@ -161,7 +161,7 @@ namespace MandelbrotSet
             this.lblDx.Name = "lblDx";
             this.lblDx.Size = new System.Drawing.Size(80, 20);
             this.lblDx.TabIndex = 13;
-            this.lblDx.Text = "From";
+            this.lblDx.Text = "Range X";
             this.lblDx.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDy
@@ -172,7 +172,7 @@ namespace MandelbrotSet
             this.lblDy.Name = "lblDy";
             this.lblDy.Size = new System.Drawing.Size(80, 20);
             this.lblDy.TabIndex = 14;
-            this.lblDy.Text = "To";
+            this.lblDy.Text = "Range Y";
             this.lblDy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtBoxPosX
@@ -183,7 +183,6 @@ namespace MandelbrotSet
             this.txtBoxPosX.Name = "txtBoxPosX";
             this.txtBoxPosX.Size = new System.Drawing.Size(56, 20);
             this.txtBoxPosX.TabIndex = 15;
-            this.txtBoxPosX.Text = "0.0";
             // 
             // txtBoxPosY
             // 
@@ -193,7 +192,6 @@ namespace MandelbrotSet
             this.txtBoxPosY.Name = "txtBoxPosY";
             this.txtBoxPosY.Size = new System.Drawing.Size(56, 20);
             this.txtBoxPosY.TabIndex = 16;
-            this.txtBoxPosY.Text = "0.0";
             // 
             // txtBoxDx
             // 
@@ -203,7 +201,6 @@ namespace MandelbrotSet
             this.txtBoxDx.Name = "txtBoxDx";
             this.txtBoxDx.Size = new System.Drawing.Size(56, 20);
             this.txtBoxDx.TabIndex = 17;
-            this.txtBoxDx.Text = "-2.0";
             // 
             // txtBoxDy
             // 
@@ -213,7 +210,6 @@ namespace MandelbrotSet
             this.txtBoxDy.Name = "txtBoxDy";
             this.txtBoxDy.Size = new System.Drawing.Size(56, 20);
             this.txtBoxDy.TabIndex = 18;
-            this.txtBoxDy.Text = "2.0";
             // 
             // MandelForm
             // 
@@ -250,6 +246,7 @@ namespace MandelbrotSet
         }
 
         #endregion
+
         private System.Windows.Forms.Button btnRender;
         private System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.NumericUpDown iterationsUpDown;
