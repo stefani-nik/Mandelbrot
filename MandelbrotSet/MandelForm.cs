@@ -73,7 +73,12 @@ namespace MandelbrotSet
         private void btnRender_Click(object sender, EventArgs e)
         {
             this.iterations = (int)iterationsUpDown.Value;
-            this.backgroundWorker.RunWorkerAsync();
+
+            if (!backgroundWorker.IsBusy)
+            {
+                this.backgroundWorker.RunWorkerAsync();
+            }
+          
             this.picBox.Cursor = Cursors.Cross;
         }
 
